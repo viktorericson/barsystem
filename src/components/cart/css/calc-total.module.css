@@ -1,0 +1,13 @@
+.container-total {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: 16px;
+	height: 10vh;
+	background-color: #EDEDED;
+}
+
+.total-font {
+	font-weight: bold;
+}

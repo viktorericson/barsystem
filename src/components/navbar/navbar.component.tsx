@@ -1,17 +1,19 @@
 import { useState } from "react";
 import {
 	AppBar,
+	Badge,
 	Button,
 	Drawer,
-	IconButton,
 	Toolbar,
 	Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import MenuIcon from "@mui/icons-material/Menu";
 import { NavListDrawer } from "./navbar-list-drawer.component";
-
-const navLinks = [{ title: "Cart", path: "#cart" }];
+import HomeIcon from "@mui/icons-material/Home";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import { Product } from "../products/products.model";
+import { NavLink, useLocation } from "react-router-dom";
 
 const drawerLinks = [
 	{ title: "All", filter: "all" },
@@ -21,34 +23,55 @@ const drawerLinks = [
 
 interface NavBarProps {
 	applyFilter: (category: string) => void;
+	productsInCart: Product[];
 }
 
 export const Navbar: React.FC<NavBarProps> = (props) => {
-	const { applyFilter } = props;
+	const { applyFilter, productsInCart } = props;
 	const [open, setOpen] = useState(false);
+	const location = useLocation();
+
+	const enableCartButton = () => {
+		let cartButton;
+		if (productsInCart.length > 0) {
+			cartButton = (
+				<Button component={NavLink} to={"/cart"}>
+					<ShoppingBasketIcon color="success" />
+					<Badge badgeContent={productsInCart.length} color="warning"></Badge>
+				</Button>
+			);
+		} else {
+			cartButton = (
+				<Button component={NavLink} to={"/cart"} disabled>
+					<ShoppingBasketIcon color="disabled" />
+				</Button>
+			);
+		}
+		return cartButton;
+	};
 
 	return (
 		<>
-			<AppBar position="static" color="default">
-				<Toolbar>
-					<IconButton
+		<Box sx={{ display: "flex" }}></Box>
+			<AppBar position="sticky" color="default">
+				<Toolbar sx={{justifyContent: location.pathname === "/" ? "space-between" : "flex-end"}} >
+					<Button sx={{display: location.pathname === "/" ? "flex" : "none"}}
 						color="inherit"
-						size="large"
-						edge="start"
 						aria-label="menu"
 						onClick={() => setOpen(true)}
 					>
 						<MenuIcon />
-					</IconButton>
-					<Typography variant="h6" sx={{ flexGrow: 1 }}>
-						Products
-					</Typography>
+
+						<Typography variant="h6" sx={{ ml: 1, textTransform:"none" }} >
+							Products
+						</Typography>
+					</Button>
+
 					<Box>
-						{navLinks.map((link) => (
-							<Button key={link.title} sx={{ color: "#fff" }} href={link.path}>
-								{link.title}
-							</Button>
-						))}
+						<Button component={NavLink} to={"/"}>
+							<HomeIcon color="action" />
+						</Button>
+						{enableCartButton()}
 					</Box>
 				</Toolbar>
 			</AppBar>

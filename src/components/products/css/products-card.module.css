@@ -1,0 +1,14 @@
+.card-content{
+	padding:8px;
+	padding-bottom: 0px;
+}
+
+.card-actions{
+	align-items: baseline;
+	justify-content: space-around;
+}
+
+.card-actions-button:hover{
+	background-color: #2E7D32;
+	color: white;
+}

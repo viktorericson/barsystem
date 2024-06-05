@@ -3,11 +3,13 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import AddIcon from "@mui/icons-material/Add";
-import { InputAdornment, TextField } from "@mui/material";
+import { IconButton, InputAdornment, TextField } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import { ProductsInCart } from "./cart.model";
 import { cartContext } from "../../cartContext";
-import { Product } from "./products.model";
-import { generateCustomID } from "./products.motor";
+import { generateCustomID } from "../products/products.motor";
+import { countNumberOfSameProducts, deleteProductFromCart } from "./cart.motor";
+import { Product } from "../products/products.model";
 
 const modalStyle = {
 	display: "flex",
@@ -25,36 +27,43 @@ const modalStyle = {
 	py: 4,
 };
 
-export const BasicModal: React.FC = () => {
+interface EditPriceModalProps {
+	productInfo: ProductsInCart;
+}
+
+export const EditPriceModal: React.FC<EditPriceModalProps> = (props) => {
+	const { desc, unit, id, category } = props.productInfo;
+	const { productsInCart, setProductsInCart } = React.useContext(cartContext);
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
-	const { productsInCart, setProductsInCart } = React.useContext(cartContext);
 
-	const nameRef = React.useRef<HTMLInputElement>(null);
 	const priceRef = React.useRef<HTMLInputElement>(null);
 
 	const addCustomProduct = (e: React.FormEvent) => {
 		e.preventDefault();
-
+		const qtyOfOriginalItem = countNumberOfSameProducts(id, productsInCart);
+		const cartWithoutOriginal = deleteProductFromCart(id, productsInCart);
 		const newCustomId = generateCustomID(productsInCart);
-		const newCustomProduct: Product = {
-			name: nameRef.current!.value,
-			price: parseFloat(priceRef.current!.value),
-			category: "custom",
-			id: newCustomId,
-		};
-		setProductsInCart([...productsInCart, newCustomProduct]);
+		const newCustomProducts: Product[] = [];
+		for (let i = 0; i < qtyOfOriginalItem; i++) {
+			newCustomProducts.push({
+				name: desc,
+				price: parseFloat(priceRef.current!.value),
+				category: category,
+				id: newCustomId,
+			});
+		}
+		setProductsInCart([...cartWithoutOriginal, ...newCustomProducts]);
 		setOpen(false);
 	};
 
 	return (
-		<div>
-			<Button size="small" color="info" variant="outlined" onClick={handleOpen}>
+		<>
+			<IconButton onClick={handleOpen}>
 				{" "}
-				<AddIcon />
-				Custom Product
-			</Button>
+				<EditIcon color="info" sx={{ fontSize: 16 }} />
+			</IconButton>
 			<Modal
 				open={open}
 				onClose={handleClose}
@@ -64,17 +73,18 @@ export const BasicModal: React.FC = () => {
 				<form onSubmit={addCustomProduct}>
 					<Box sx={modalStyle}>
 						<Typography id="modal-modal-title" variant="h6" component="h2">
-							<strong>Add a new product</strong>
+							<strong>Enter a New Price</strong>
 						</Typography>
 
 						<TextField
 							required
-							inputRef={nameRef}
 							id="product-name-required"
 							label="Product name"
 							variant="standard"
 							size="small"
 							margin="dense"
+							defaultValue={`(M) ${desc}`}
+							disabled
 						/>
 						<TextField
 							required
@@ -89,6 +99,7 @@ export const BasicModal: React.FC = () => {
 							size="small"
 							margin="dense"
 							type="number"
+							defaultValue={unit.toFixed(2)}
 						/>
 						<Button
 							size="small"
@@ -102,6 +113,6 @@ export const BasicModal: React.FC = () => {
 					</Box>
 				</form>
 			</Modal>
-		</div>
+		</>
 	);
 };

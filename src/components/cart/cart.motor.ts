@@ -20,6 +20,7 @@ export const groupProducts = (products: Product[]): ProductsInCart[] => {
 				qty: 1,
 				unit: product.price,
 				id: product.id,
+				category: product.category,
 			});
 		}
 		return acc;
@@ -33,4 +34,20 @@ export const calcTotal = (products: ProductsInCart[]) => {
 
 export const isCartEmpty = (products: Product[]) => {
 	return products.length > 0;
+}
+
+export const searchProductByIdInCart = (id: number, productsInCart: Product[]): Product => {
+	return productsInCart.find((product) => product.id === id)!;
+}
+
+export const existsIDInCart = (id: number, productsInCart: Product[]): boolean => {
+	return productsInCart.some((product) => product.id === id);
+}
+
+export const deleteProductFromCart = (id: number, productsInCart: Product[]): Product[] => {
+	return productsInCart.filter((product) => product.id !== id);
+}
+
+export const countNumberOfSameProducts = (id: number, productsInCart: Product[]): number => {
+	return productsInCart.filter((product) => product.id === id).length;
 }

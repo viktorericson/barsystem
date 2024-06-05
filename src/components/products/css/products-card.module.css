@@ -8,6 +8,11 @@
 	justify-content: space-around;
 }
 
+.card-actions-button{
+	font-weight: bold;
+	padding: 0px;
+}
+
 .card-actions-button:hover{
 	background-color: #2E7D32;
 	color: white;

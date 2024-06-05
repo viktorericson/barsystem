@@ -1,12 +1,8 @@
-import { Product } from "../components/products/products.model";
+import React from "react";
+import { cartContext } from "../cartContext";
 
-interface CartPageProps {
-	productsInCart: Product[];
 
-}
-
-export const CartPage: React.FC<CartPageProps> = (props) => {
-	const { productsInCart } = props;
-	console.log(productsInCart);
+export const CartPage: React.FC = () => {
+	const { productsInCart } = React.useContext(cartContext);
 	return <h1>Cart</h1>;
 };

@@ -3,6 +3,12 @@
 	overflow: auto;
 }
 
+.title-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
 .products-title {
 	padding: 8px;
 }

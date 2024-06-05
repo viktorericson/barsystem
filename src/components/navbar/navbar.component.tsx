@@ -12,8 +12,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { NavListDrawer } from "./navbar-list-drawer.component";
 import HomeIcon from "@mui/icons-material/Home";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import { Product } from "../products/products.model";
 import { NavLink, useLocation } from "react-router-dom";
+
+import React from "react";
+import { cartContext } from "../../cartContext";
 
 const drawerLinks = [
 	{ title: "All", filter: "all" },
@@ -23,11 +25,11 @@ const drawerLinks = [
 
 interface NavBarProps {
 	applyFilter: (category: string) => void;
-	productsInCart: Product[];
 }
 
 export const Navbar: React.FC<NavBarProps> = (props) => {
-	const { applyFilter, productsInCart } = props;
+	const { productsInCart } = React.useContext(cartContext);
+	const { applyFilter } = props;
 	const [open, setOpen] = useState(false);
 	const location = useLocation();
 
@@ -52,17 +54,22 @@ export const Navbar: React.FC<NavBarProps> = (props) => {
 
 	return (
 		<>
-		<Box sx={{ display: "flex" }}></Box>
+			<Box sx={{ display: "flex" }}></Box>
 			<AppBar position="sticky" color="default">
-				<Toolbar sx={{justifyContent: location.pathname === "/" ? "space-between" : "flex-end"}} >
-					<Button sx={{display: location.pathname === "/" ? "flex" : "none"}}
+				<Toolbar
+					sx={{
+						justifyContent: location.pathname === "/" ? "space-between" : "flex-end",
+					}}
+				>
+					<Button
+						sx={{ display: location.pathname === "/" ? "flex" : "none" }}
 						color="inherit"
 						aria-label="menu"
 						onClick={() => setOpen(true)}
 					>
 						<MenuIcon />
 
-						<Typography variant="h6" sx={{ ml: 1, textTransform:"none" }} >
+						<Typography variant="h6" sx={{ ml: 1, textTransform: "none" }}>
 							Products
 						</Typography>
 					</Button>

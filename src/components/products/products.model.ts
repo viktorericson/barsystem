@@ -27,7 +27,3 @@ export const PRODUCTS: Product[] = [
 	{ name: "Pancakes", price: 3.50, category: CATEGORIES.PASTRIES, id: 13 },
 	{ name: "Waffles", price: 3.50, category: CATEGORIES.PASTRIES, id: 14 },
 ];
-
-export const searchProductById = (id: number): Product => {
-	return PRODUCTS.find((product) => product.id === id)!;
-}

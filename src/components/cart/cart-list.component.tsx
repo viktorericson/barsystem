@@ -8,25 +8,13 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { groupProducts } from "./cart.motor";
 import { CartItem } from "./cart-item.component";
-import { Product } from "../products/products.model";
 import { Box } from "@mui/material";
 import classes from "./css/cart-list.module.css";
 import { CalcTotal } from "./calc-total.component";
+import { cartContext } from "../../cartContext";
 
-interface CartListProps {
-	productsInCart: Product[];
-	deleteProduct: (id: number) => void;
-	addToCart: (id: number) => void;
-	subtractQty: (id: number) => void;
-}
-
-export const CartList: React.FC<CartListProps> = (props) => {
-	const {
-		productsInCart,
-		deleteProduct: handleDeleteFromCart,
-		addToCart,
-		subtractQty,
-	} = props;
+export const CartList: React.FC = () => {
+	const { productsInCart } = React.useContext(cartContext);
 	const productsGrouped = groupProducts(productsInCart);
 
 	return (
@@ -53,15 +41,12 @@ export const CartList: React.FC<CartListProps> = (props) => {
 							<CartItem
 								key={row.id}
 								productInfo={row}
-								deleteProduct={handleDeleteFromCart}
-								addToCart={addToCart}
-								subtractQty={subtractQty}
 							/>
 						))}
 					</TableBody>
 				</Table>
 			</TableContainer>
-			<CalcTotal productsInCart={productsInCart} />
+			<CalcTotal/>
 		</Box>
 	);
 };

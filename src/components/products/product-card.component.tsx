@@ -20,13 +20,16 @@ export const ProductCard: React.FC<ProductCardProps> = (props) => {
 	const { addToCart } = props;
 	const { enqueueSnackbar } = useSnackbar();
 	const openSnackBar = () => {
-		enqueueSnackbar("Product Added!", {variant: "success", style: { opacity:"90%"}});
+		enqueueSnackbar(`${name} added! (${price.toFixed(2)}€)`, {
+			variant: "success",
+			style: { opacity: "90%" },
+		});
 	};
 	return (
 		<Card>
 			<CardMedia
 				component="img"
-				alt="hot drink"
+				alt={name}
 				image="https://via.placeholder.com/100x100"
 			/>
 			<CardContent className={classes["card-content"]}>

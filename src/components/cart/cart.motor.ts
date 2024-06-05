@@ -30,3 +30,7 @@ export const groupProducts = (products: Product[]): ProductsInCart[] => {
 export const calcTotal = (products: ProductsInCart[]) => {
 	return products.reduce((acc, curr) => acc + curr.qty * curr.unit, 0);
 }
+
+export const isCartEmpty = (products: Product[]) => {
+	return products.length > 0;
+}

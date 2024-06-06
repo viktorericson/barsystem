@@ -9,16 +9,46 @@ import {
 import { Product } from "./products.model";
 import classes from "./css/products-card.module.css";
 import { useSnackbar } from "notistack";
+import { SelectVariant } from "./modal-select-variant.component";
+import React from "react";
+import { cartContext } from "../../cartContext";
+import { searchProductById } from "./products.motor";
 
 interface ProductCardProps {
 	product: Product;
-	addToCart: (id: number) => void;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = (props) => {
-	const { name, price } = props.product;
-	const { addToCart } = props;
+	const { name, price, variants } = props.product;
 	const { enqueueSnackbar } = useSnackbar();
+
+	const { productsInCart, setProductsInCart } = React.useContext(cartContext);
+	const addToCart = (id: number) => {
+		const productFinded = searchProductById(id);
+		setProductsInCart([...productsInCart, productFinded]);
+	};
+
+	const createButton = () => {
+		if (variants) {
+			return <SelectVariant product={props.product} />;
+		} else {
+			return (
+				<Button
+					className={classes["card-actions-button"]}
+					size="small"
+					color="success"
+					variant="outlined"
+					onClick={() => {
+						addToCart(props.product.id);
+						openSnackBar();
+					}}
+				>
+					Add
+				</Button>
+			);
+		}
+	};
+
 	const openSnackBar = () => {
 		enqueueSnackbar(`${name} added! (${price.toFixed(2)}€)`, {
 			variant: "success",
@@ -41,18 +71,7 @@ export const ProductCard: React.FC<ProductCardProps> = (props) => {
 				<Typography gutterBottom variant="body2" component="h3">
 					{price.toFixed(2)}€
 				</Typography>
-				<Button
-					className={classes["card-actions-button"]}
-					size="small"
-					color="success"
-					variant="outlined"
-					onClick={() => {
-						addToCart(props.product.id);
-						openSnackBar();
-					}}
-				>
-					Add
-				</Button>
+				{createButton()}
 			</CardActions>
 		</Card>
 	);

@@ -1,5 +1,5 @@
 import { existsIDInCart } from "../cart/cart.motor";
-import { CATEGORIES, PRODUCTS, Product } from "./products.model";
+import { CATEGORIES, PRODUCTS, PRODUCT_VARIANTS, Product, ProductVariant } from "./products.model";
 
 export const filterProducts = (productList: Product[], category: string): Product[] => {
 	if (category === CATEGORIES.ALL) {
@@ -29,6 +29,10 @@ export const returnCategoryName = (filter: string): string => {
 
 export const searchProductById = (id: number): Product => {
 	return PRODUCTS.find((product) => product.id === id)!;
+}
+
+export const searchVariantById = (id: number): ProductVariant => {
+	return PRODUCT_VARIANTS.find((product) => product.id === id)!;
 }
 
 export const generateCustomID = (productsInCart: Product[]): number => {

@@ -32,7 +32,7 @@ interface EditPriceModalProps {
 }
 
 export const EditPriceModal: React.FC<EditPriceModalProps> = (props) => {
-	const { desc, unit, id, category } = props.productInfo;
+	const { desc, unit, id, category, variantName } = props.productInfo;
 	const { productsInCart, setProductsInCart } = React.useContext(cartContext);
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
@@ -52,6 +52,7 @@ export const EditPriceModal: React.FC<EditPriceModalProps> = (props) => {
 				price: parseFloat(priceRef.current!.value),
 				category: category,
 				id: newCustomId,
+				variantName: variantName,
 			});
 		}
 		setProductsInCart([...cartWithoutOriginal, ...newCustomProducts]);
@@ -83,7 +84,7 @@ export const EditPriceModal: React.FC<EditPriceModalProps> = (props) => {
 							variant="standard"
 							size="small"
 							margin="dense"
-							defaultValue={`(M) ${desc}`}
+							defaultValue={desc}
 							disabled
 						/>
 						<TextField
@@ -108,7 +109,7 @@ export const EditPriceModal: React.FC<EditPriceModalProps> = (props) => {
 							type="submit"
 							sx={{ mt: 2 }}
 						>
-							Add to Cart
+							Modify Price
 						</Button>
 					</Box>
 				</form>

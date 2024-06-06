@@ -15,13 +15,15 @@ export const groupProducts = (products: Product[]): ProductsInCart[] => {
 		if (found) {
 			found.qty += 1;
 		} else {
-			acc.push({
-				desc: product.name,
-				qty: 1,
-				unit: product.price,
-				id: product.id,
-				category: product.category,
-			});
+				acc.push({
+					desc: product.name,
+					qty: 1,
+					unit: product.price,
+					id: product.id,
+					category: product.category,
+					variantName: product?.variantName,
+				});
+
 		}
 		return acc;
 	}, [] as ProductsInCart[]);

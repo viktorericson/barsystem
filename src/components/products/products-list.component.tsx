@@ -2,14 +2,12 @@ import { Box, Grid, Paper, Typography } from "@mui/material";
 import {
 	filterProducts,
 	returnCategoryName,
-	searchProductById,
 } from "./products.motor";
 import { PRODUCTS } from "./products.model";
 import { ProductCard } from "./product-card.component";
 import classes from "./css/products-list.module.css";
 import { BasicModal } from "./modal-add-product.component";
 import React from "react";
-import { cartContext } from "../../cartContext";
 
 interface ProductsListProps {
 	filter: string;
@@ -22,13 +20,6 @@ export const ProductsList: React.FC<ProductsListProps> = (props) => {
 
 	const buildTitle = (categoryName: string) => {
 		return <strong>{categoryName}</strong>;
-	};
-
-	const { productsInCart, setProductsInCart } = React.useContext(cartContext);
-
-	const addToCart = (id: number) => {
-		const productFinded = searchProductById(id);
-		setProductsInCart([...productsInCart, productFinded]);
 	};
 
 	return (
@@ -46,7 +37,7 @@ export const ProductsList: React.FC<ProductsListProps> = (props) => {
 			<Grid container spacing={2}>
 				{productsFiltered.map((product, index) => (
 					<Grid key={index} item xl={2} lg={3} md={4} sm={3} xs={6}>
-						<ProductCard product={product} addToCart={addToCart} />
+						<ProductCard product={product}/>
 					</Grid>
 				))}
 			</Grid>

@@ -4,4 +4,5 @@ export interface ProductsInCart {
 	unit: number;
 	category: string;
 	id: number;
+	variantName?: string;
 }

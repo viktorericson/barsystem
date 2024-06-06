@@ -1,4 +1,4 @@
-import { IconButton, TableCell, TableRow } from "@mui/material";
+import { IconButton, TableCell, TableRow, Typography } from "@mui/material";
 import { ProductsInCart } from "./cart.model";
 import { ccyFormat, priceRow, searchProductByIdInCart } from "./cart.motor";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -8,21 +8,18 @@ import React from "react";
 import { cartContext } from "../../cartContext";
 import { EditPriceModal } from "./edit-price-modal.component";
 
-
 interface CartItemProps {
 	productInfo: ProductsInCart;
 }
 
 export const CartItem: React.FC<CartItemProps> = (props) => {
-	const { desc, qty, unit, id } = props.productInfo;
+	const { desc, qty, unit, id, category, variantName } = props.productInfo;
 	const { productsInCart, setProductsInCart } = React.useContext(cartContext);
 
 	const formattedDescription = () => {
 		const trimmedDesc = desc.length > 15 ? `${desc.substring(0, 15)}…` : desc;
-		return (id > 1000) 
-		?	<em>{trimmedDesc}</em>
-		:	trimmedDesc;
-	}
+		return trimmedDesc;
+	};
 
 	const addQtyToCart = (id: number) => {
 		const productFinded = searchProductByIdInCart(id, productsInCart);
@@ -48,8 +45,29 @@ export const CartItem: React.FC<CartItemProps> = (props) => {
 	return (
 		<TableRow>
 			<TableCell>
-				<EditPriceModal productInfo={props.productInfo}/>
+				<EditPriceModal productInfo={props.productInfo} />
 				{formattedDescription()}
+				<br></br>
+				{(category === "custom" || id > 1000) && (
+					<Typography
+						component="p"
+						variant="body2"
+						sx={{ color: "#0288D1", fontStretch: "condensed", fontStyle: "italic" }}
+					>
+						{" "}
+						*Custom
+					</Typography>
+				)}
+				{(variantName) && (
+					<Typography
+						component="p"
+						variant="body2"
+						sx={{ color: "#0288D1", fontStretch: "condensed", fontStyle: "italic" }}
+					>
+						{"➜ "}
+						{variantName}
+					</Typography>
+				)}
 			</TableCell>
 			<TableCell align="center">
 				<IconButton onClick={() => subtractQtyFromCart(id)}>

@@ -16,11 +16,7 @@ interface ProductsListProps {
 export const ProductsList: React.FC<ProductsListProps> = (props) => {
 	const { filter } = props;
 	const productsFiltered = filterProducts(PRODUCTS, filter);
-	const categoryName = returnCategoryName(filter);
-
-	const buildTitle = (categoryName: string) => {
-		return <strong>{categoryName}</strong>;
-	};
+	const categoryName = <strong>{returnCategoryName(filter)}</strong>;
 
 	return (
 		<Paper className={classes["products-container"]} elevation={3} square>
@@ -30,7 +26,7 @@ export const ProductsList: React.FC<ProductsListProps> = (props) => {
 					variant="h6"
 					component="h2"
 				>
-					Listing: {buildTitle(categoryName)}
+					Listing: {categoryName}
 				</Typography>
 				<BasicModal />
 			</Box>

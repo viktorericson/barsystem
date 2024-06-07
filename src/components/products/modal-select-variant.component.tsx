@@ -8,7 +8,9 @@ import { PRODUCT_VARIANTS, Product } from "./products.model";
 import { searchVariantById } from "./products.motor";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { enqueueSnackbar } from "notistack";
+import classes from "./css/modal-select-variant.module.css"
 
+//TODO Mobile responsive
 const modalStyle = {
 	display: "flex",
 	flexDirection: "column",
@@ -32,6 +34,8 @@ interface SelectVariantProps {
 
 export const SelectVariant: React.FC<SelectVariantProps> = (props) => {
 	const { product } = props;
+	const { productsInCart, setProductsInCart } = React.useContext(cartContext);
+
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => {
@@ -39,9 +43,15 @@ export const SelectVariant: React.FC<SelectVariantProps> = (props) => {
 		setAlignment("");
 		setErrorMesage(<></>);
 	};
-	const { productsInCart, setProductsInCart } = React.useContext(cartContext);
+	
 	const [alignment, setAlignment] = React.useState("");
 	const [errorMesage, setErrorMesage] = React.useState(<></>);
+	const handleChangeToggle = (
+		_event: React.MouseEvent<HTMLElement>,
+		newAlignment: string
+	) => {
+		setAlignment(newAlignment);
+	};
 
 	const openSnackBar = (name: string, price: number) => {
 		enqueueSnackbar(`${name} added! (${price.toFixed(2)}€)`, {
@@ -50,18 +60,11 @@ export const SelectVariant: React.FC<SelectVariantProps> = (props) => {
 		});
 	};
 
-	const handleChangeToggle = (
-		_event: React.MouseEvent<HTMLElement>,
-		newAlignment: string
-	) => {
-		setAlignment(newAlignment);
-	};
-
 	const addCustomProduct = (e: React.FormEvent) => {
 		e.preventDefault();
 		if (alignment === "") {
 			setErrorMesage(
-				<Typography variant="body2" sx={{ color: "#D32F2F" }}>
+				<Typography variant="body2" className={classes["error-msg"]}>
 					Please select a variant
 				</Typography>
 			);
@@ -78,7 +81,7 @@ export const SelectVariant: React.FC<SelectVariantProps> = (props) => {
 	return (
 		<div>
 			<Button
-				sx={{ fontWeight: "bold", padding: 0 }}
+				className={classes["select-button"]}
 				size="small"
 				color="success"
 				variant="outlined"
@@ -101,13 +104,13 @@ export const SelectVariant: React.FC<SelectVariantProps> = (props) => {
 							id="modal-modal-title"
 							variant="body2"
 							component="h2"
-							sx={{ mt: 2 }}
+							className={classes["modal-title"]}
 						>
 							<strong>Select your variant:</strong>
 						</Typography>
 
 						<ToggleButtonGroup
-							sx={{ justifyContent: "center" }}
+							className={classes["toggle-button-group"]}
 							color="primary"
 							value={alignment}
 							exclusive
@@ -128,7 +131,7 @@ export const SelectVariant: React.FC<SelectVariantProps> = (props) => {
 							color="success"
 							variant="outlined"
 							type="submit"
-							sx={{ mt: 2 }}
+							className={classes["add-to-cart-button"]}
 						>
 							Add to Cart
 						</Button>

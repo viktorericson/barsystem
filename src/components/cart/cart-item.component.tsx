@@ -7,6 +7,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import React from "react";
 import { cartContext } from "../../cartContext";
 import { EditPriceModal } from "./edit-price-modal.component";
+import classes from "./css/cart-item.module.css"
 
 interface CartItemProps {
 	productInfo: ProductsInCart;
@@ -52,7 +53,7 @@ export const CartItem: React.FC<CartItemProps> = (props) => {
 					<Typography
 						component="p"
 						variant="body2"
-						sx={{ color: "#0288D1", fontStretch: "condensed", fontStyle: "italic" }}
+						className={classes["custom-label"]}
 					>
 						{" "}
 						*Custom
@@ -62,7 +63,7 @@ export const CartItem: React.FC<CartItemProps> = (props) => {
 					<Typography
 						component="p"
 						variant="body2"
-						sx={{ color: "#0288D1", fontStretch: "condensed", fontStyle: "italic" }}
+						className={classes["variant-label"]}
 					>
 						{"➜ "}
 						{variantName}
@@ -71,18 +72,18 @@ export const CartItem: React.FC<CartItemProps> = (props) => {
 			</TableCell>
 			<TableCell align="center">
 				<IconButton onClick={() => subtractQtyFromCart(id)}>
-					<RemoveCircleOutlineIcon sx={{ fontSize: 16 }} />
+					<RemoveCircleOutlineIcon className={classes.icon} />
 				</IconButton>
 				{qty}
 				<IconButton onClick={() => addQtyToCart(id)}>
-					<AddCircleOutlineIcon sx={{ fontSize: 16 }} />
+					<AddCircleOutlineIcon className={classes.icon} />
 				</IconButton>
 			</TableCell>
 			<TableCell align="right">{ccyFormat(unit)}</TableCell>
 			<TableCell align="right">{ccyFormat(priceRow(qty, unit))}</TableCell>
 			<TableCell align="right">
 				<IconButton onClick={() => deleteFromCart(id)}>
-					<DeleteIcon sx={{ fontSize: 16, color: "#D32F2F" }} />
+					<DeleteIcon className={classes["delete-icon"]} />
 				</IconButton>
 			</TableCell>
 		</TableRow>

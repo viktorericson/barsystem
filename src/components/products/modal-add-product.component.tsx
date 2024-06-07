@@ -9,6 +9,7 @@ import { cartContext } from "../../cartContext";
 import { Product } from "./products.model";
 import { generateCustomID } from "./products.motor";
 
+//TODO Mobile responsive
 const modalStyle = {
 	display: "flex",
 	flexDirection: "column",
@@ -26,17 +27,17 @@ const modalStyle = {
 };
 
 export const BasicModal: React.FC = () => {
+	const { productsInCart, setProductsInCart } = React.useContext(cartContext);
+
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
-	const { productsInCart, setProductsInCart } = React.useContext(cartContext);
-
+	
 	const nameRef = React.useRef<HTMLInputElement>(null);
 	const priceRef = React.useRef<HTMLInputElement>(null);
 
 	const addCustomProduct = (e: React.FormEvent) => {
 		e.preventDefault();
-
 		const newCustomId = generateCustomID(productsInCart);
 		const newCustomProduct: Product = {
 			name: nameRef.current!.value,
@@ -58,8 +59,6 @@ export const BasicModal: React.FC = () => {
 			<Modal
 				open={open}
 				onClose={handleClose}
-				aria-labelledby="modal-modal-title"
-				aria-describedby="modal-modal-description"
 			>
 				<form onSubmit={addCustomProduct}>
 					<Box sx={modalStyle}>

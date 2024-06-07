@@ -11,6 +11,7 @@ import { generateCustomID } from "../products/products.motor";
 import { countNumberOfSameProducts, deleteProductFromCart } from "./cart.motor";
 import { Product } from "../products/products.model";
 
+// TODO Responsive Mobile
 const modalStyle = {
 	display: "flex",
 	flexDirection: "column",

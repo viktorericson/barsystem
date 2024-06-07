@@ -8,8 +8,8 @@ import { CartPage } from "./pages/cart";
 import { cartContext } from "./cartContext";
 
 function App() {
-	const [filter, setFilter] = React.useState<string>(CATEGORIES.ALL);
 	const [productsInCart, setProductsInCart] = React.useState<Product[]>([]);
+	const [filter, setFilter] = React.useState<string>(CATEGORIES.ALL);
 
 	const applyFilter = (category: string) => {
 		setFilter(category);

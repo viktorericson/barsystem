@@ -30,7 +30,7 @@ export const PRODUCTS: Product[] = [
 	{ name: "Hot chocolate", price: 4.00, category: CATEGORIES.HOT_DRINKS, id: 3 },
 	{ name: "Cappuccino", price: 3.00, category: CATEGORIES.HOT_DRINKS, id: 4, variants: true },
 	{ name: "Espresso", price: 2.00, category: CATEGORIES.HOT_DRINKS, id: 5 },
-	{ name: "Latte", price: 3.50, category: CATEGORIES.HOT_DRINKS, id: 6 },
+	{ name: "Americano", price: 3.50, category: CATEGORIES.HOT_DRINKS, id: 6 },
 	{ name: "Orange juice", price: 3.00, category: CATEGORIES.HOT_DRINKS, id: 7 },
 	{ name: "Croissant", price: 2.00, category: CATEGORIES.PASTRIES, id: 8 },
 	{ name: "Muffin", price: 2.50, category: CATEGORIES.PASTRIES, id: 9 },
@@ -38,7 +38,7 @@ export const PRODUCTS: Product[] = [
 	{ name: "Bagel", price: 2.50, category: CATEGORIES.PASTRIES, id: 11 },
 	{ name: "Toast", price: 2.00, category: CATEGORIES.PASTRIES, id: 12 },
 	{ name: "Pancakes", price: 3.50, category: CATEGORIES.PASTRIES, id: 13 },
-	{ name: "Waffles", price: 3.50, category: CATEGORIES.PASTRIES, id: 14 },
+	{ name: "Cheesecake", price: 3.50, category: CATEGORIES.PASTRIES, id: 14 },
 ];
 
 export const PRODUCT_VARIANTS : ProductVariant[] = [

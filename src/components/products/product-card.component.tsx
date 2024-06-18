@@ -61,7 +61,7 @@ export const ProductCard: React.FC<ProductCardProps> = (props) => {
 			<CardMedia
 				component="img"
 				alt={name}
-				image="https://via.placeholder.com/100x100"
+				image={`imgs/products/${name}.jpg`}
 			/>
 			<CardContent className={classes["card-content"]}>
 				<Typography gutterBottom variant="body2" component="h3">

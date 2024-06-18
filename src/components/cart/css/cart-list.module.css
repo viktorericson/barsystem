@@ -2,4 +2,31 @@
 	padding: 0px;
 	overflow: auto;
 	height: 70vh;
+	width: 100%;
+}
+
+.table-header {
+	background-color: #E3E3E3;
+}
+
+.table-body {
+	background-image: url(../../../../public/imgs/table-body-background.png);
+	background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+	width: 100%;
+  height: 100%;
+}
+
+/* Responsive design */
+/* XS: 0px */
+/* SM: 600px */
+/* MD: 900px */
+/* LG: 1200px */
+/* XL: 1536px*/
+@media (width < 600px) {
+	.cart-container {
+		width: 90vw;
+		height: auto;
+	}
 }

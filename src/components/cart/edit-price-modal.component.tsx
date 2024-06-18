@@ -10,23 +10,7 @@ import { cartContext } from "../../cartContext";
 import { generateCustomID } from "../products/products.motor";
 import { countNumberOfSameProducts, deleteProductFromCart } from "./cart.motor";
 import { Product } from "../products/products.model";
-
-// TODO Responsive Mobile
-const modalStyle = {
-	display: "flex",
-	flexDirection: "column",
-	textAlign: "center",
-	position: "absolute",
-	top: "50%",
-	left: "50%",
-	transform: "translate(-50%, -50%)",
-	width: "350px",
-	bgcolor: "background.paper",
-	border: "2px solid #000",
-	boxShadow: 24,
-	px: 8,
-	py: 4,
-};
+import classes from "./css/edit-price-modal.module.css"
 
 interface EditPriceModalProps {
 	productInfo: ProductsInCart;
@@ -73,7 +57,7 @@ export const EditPriceModal: React.FC<EditPriceModalProps> = (props) => {
 				aria-describedby="modal-modal-description"
 			>
 				<form onSubmit={addCustomProduct}>
-					<Box sx={modalStyle}>
+				<Box className={classes["modal-style"]}>
 						<Typography id="modal-modal-title" variant="h6" component="h2">
 							<strong>Enter a New Price</strong>
 						</Typography>

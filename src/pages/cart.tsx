@@ -1,8 +1,13 @@
 import React from "react";
-import { cartContext } from "../cartContext";
-
+import { Container, Typography } from "@mui/material";
+import { CartList } from "../components/cart/cart-list.component";
+import classes from "./css/cart.module.css"
 
 export const CartPage: React.FC = () => {
-	const { productsInCart } = React.useContext(cartContext);
-	return <h1>Cart</h1>;
+	return (
+		<Container maxWidth="xl" className={classes["main-container"]}>
+			<Typography variant="h5" component="h2" sx={{mb:1}}>Products in Cart</Typography>
+			<CartList />
+		</Container>
+	);
 };

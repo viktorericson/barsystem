@@ -25,11 +25,10 @@ export const CartList: React.FC = () => {
 				elevation={3}
 				square
 			>
-				<Table aria-label="spanning table">
+				<Table aria-label="spanning table" className={(productsGrouped.length === 0) ? classes["table-body"] : ""}>
 					<TableHead>
-						<TableRow></TableRow>
-						<TableRow>
-							<TableCell>Product</TableCell>
+						<TableRow className={classes["table-header"]}>
+							<TableCell >Product</TableCell>
 							<TableCell align="center">Qty.</TableCell>
 							<TableCell align="right">Price</TableCell>
 							<TableCell align="right">Sum</TableCell>

@@ -8,23 +8,7 @@ import { InputAdornment, TextField } from "@mui/material";
 import { cartContext } from "../../cartContext";
 import { Product } from "./products.model";
 import { generateCustomID } from "./products.motor";
-
-//TODO Mobile responsive
-const modalStyle = {
-	display: "flex",
-	flexDirection: "column",
-	textAlign: "center",
-	position: "absolute",
-	top: "50%",
-	left: "50%",
-	transform: "translate(-50%, -50%)",
-	width: "350px",
-	bgcolor: "background.paper",
-	border: "2px solid #000",
-	boxShadow: 24,
-	px: 8,
-	py: 4,
-};
+import classes from "./css/modal-add-product.module.css"
 
 export const BasicModal: React.FC = () => {
 	const { productsInCart, setProductsInCart } = React.useContext(cartContext);
@@ -61,7 +45,7 @@ export const BasicModal: React.FC = () => {
 				onClose={handleClose}
 			>
 				<form onSubmit={addCustomProduct}>
-					<Box sx={modalStyle}>
+				<Box className={classes["modal-style"]}>
 						<Typography id="modal-modal-title" variant="h6" component="h2">
 							<strong>Add a new product</strong>
 						</Typography>

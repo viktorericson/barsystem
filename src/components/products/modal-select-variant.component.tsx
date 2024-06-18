@@ -8,25 +8,7 @@ import { PRODUCT_VARIANTS, Product } from "./products.model";
 import { searchVariantById } from "./products.motor";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { enqueueSnackbar } from "notistack";
-import classes from "./css/modal-select-variant.module.css"
-
-//TODO Mobile responsive
-const modalStyle = {
-	display: "flex",
-	flexDirection: "column",
-	textAlign: "center",
-	position: "absolute",
-	alignItems: "stretch",
-	top: "50%",
-	left: "50%",
-	transform: "translate(-50%, -50%)",
-	width: "350px",
-	bgcolor: "background.paper",
-	border: "2px solid #000",
-	boxShadow: 24,
-	px: 8,
-	py: 4,
-};
+import classes from "./css/modal-select-variant.module.css";
 
 interface SelectVariantProps {
 	product: Product;
@@ -43,7 +25,7 @@ export const SelectVariant: React.FC<SelectVariantProps> = (props) => {
 		setAlignment("");
 		setErrorMesage(<></>);
 	};
-	
+
 	const [alignment, setAlignment] = React.useState("");
 	const [errorMesage, setErrorMesage] = React.useState(<></>);
 	const handleChangeToggle = (
@@ -96,7 +78,7 @@ export const SelectVariant: React.FC<SelectVariantProps> = (props) => {
 				aria-describedby="modal-modal-description"
 			>
 				<form onSubmit={addCustomProduct}>
-					<Box sx={modalStyle}>
+					<Box className={classes["modal-style"]}>
 						<Typography id="modal-modal-title" variant="h6" component="h2">
 							<strong>{product.name}</strong>
 						</Typography>

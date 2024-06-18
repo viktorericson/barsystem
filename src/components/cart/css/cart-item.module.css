@@ -18,3 +18,18 @@
 	font-size: 1rem;
 	color: #D32F2F;
 }
+
+
+
+/* Responsive design */
+/* XS: 0px */
+/* SM: 600px */
+/* MD: 900px */
+/* LG: 1200px */
+/* XL: 1536px*/
+@media (width < 600px) {
+	.cart-container {
+		width: 90vw;
+		height: auto;
+	}
+}

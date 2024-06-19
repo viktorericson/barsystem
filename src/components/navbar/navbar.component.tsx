@@ -13,9 +13,11 @@ import { NavListDrawer } from "./navbar-list-drawer.component";
 import HomeIcon from "@mui/icons-material/Home";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { NavLink, useLocation } from "react-router-dom";
+import ListAltIcon from '@mui/icons-material/ListAlt';
 
 import React from "react";
-import { cartContext } from "../../cartContext";
+import { appContext } from "../../appContext";
+import { isCartEmpty } from "../cart/cart.motor";
 
 const drawerLinks = [
 	{ title: "All", filter: "all" },
@@ -28,14 +30,14 @@ interface NavBarProps {
 }
 
 export const Navbar: React.FC<NavBarProps> = (props) => {
-	const { productsInCart } = React.useContext(cartContext);
+	const { productsInCart } = React.useContext(appContext).cartCTX;
 	const { applyFilter } = props;
 	const [open, setOpen] = useState(false);
 	const location = useLocation();
 
 	const enableCartButton = () => {
 		let cartButton;
-		if (productsInCart.length > 0) {
+		if (!isCartEmpty(productsInCart)) {
 			cartButton = (
 				<Button component={NavLink} to={"/cart"}>
 					<ShoppingBasketIcon color="success" />
@@ -68,7 +70,6 @@ export const Navbar: React.FC<NavBarProps> = (props) => {
 						onClick={() => setOpen(true)}
 					>
 						<MenuIcon />
-
 						<Typography variant="h6" sx={{ ml: 1, textTransform: "none" }}>
 							Products
 						</Typography>
@@ -77,6 +78,9 @@ export const Navbar: React.FC<NavBarProps> = (props) => {
 					<Box>
 						<Button component={NavLink} to={"/"}>
 							<HomeIcon color="action" />
+						</Button>
+						<Button component={NavLink} to={"/orders"}>
+							<ListAltIcon color="action"/>
 						</Button>
 						{enableCartButton()}
 					</Box>

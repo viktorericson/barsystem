@@ -5,7 +5,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import React from "react";
-import { cartContext } from "../../cartContext";
+import { appContext } from "../../appContext";
 import { EditPriceModal } from "./edit-price-modal.component";
 import classes from "./css/cart-item.module.css"
 
@@ -15,7 +15,7 @@ interface CartItemProps {
 
 export const CartItem: React.FC<CartItemProps> = (props) => {
 	const { desc, qty, unit, id, category, variantName } = props.productInfo;
-	const { productsInCart, setProductsInCart } = React.useContext(cartContext);
+	const { productsInCart, setProductsInCart } = React.useContext(appContext).cartCTX;
 
 	const formattedDescription = () => {
 		const trimmedDesc = desc.length > 15 ? `${desc.substring(0, 15)}…` : desc;

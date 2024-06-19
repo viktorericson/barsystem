@@ -5,13 +5,13 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import AddIcon from "@mui/icons-material/Add";
 import { InputAdornment, TextField } from "@mui/material";
-import { cartContext } from "../../cartContext";
+import { appContext } from "../../appContext";
 import { Product } from "./products.model";
 import { generateCustomID } from "./products.motor";
 import classes from "./css/modal-add-product.module.css"
 
 export const BasicModal: React.FC = () => {
-	const { productsInCart, setProductsInCart } = React.useContext(cartContext);
+	const { productsInCart, setProductsInCart } = React.useContext(appContext).cartCTX;
 
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);

@@ -11,7 +11,7 @@ import classes from "./css/products-card.module.css";
 import { enqueueSnackbar } from "notistack";
 import { SelectVariant } from "./modal-select-variant.component";
 import React from "react";
-import { cartContext } from "../../cartContext";
+import { appContext } from "../../appContext";
 import { searchProductById } from "./products.motor";
 
 interface ProductCardProps {
@@ -20,7 +20,7 @@ interface ProductCardProps {
 
 export const ProductCard: React.FC<ProductCardProps> = (props) => {
 	const { name, price, variants } = props.product;
-	const { productsInCart, setProductsInCart } = React.useContext(cartContext);
+	const { productsInCart, setProductsInCart } = React.useContext(appContext).cartCTX;
 	
 	const openSnackBar = () => {
 		enqueueSnackbar(`${name} added! (${price.toFixed(2)}€)`, {
@@ -32,6 +32,7 @@ export const ProductCard: React.FC<ProductCardProps> = (props) => {
 	const addToCart = (id: number) => {
 		const productFinded = searchProductById(id);
 		setProductsInCart([...productsInCart, productFinded]);
+		window.sessionStorage.setItem("cart", JSON.stringify(productsInCart));
 	};
 
 	const createButton = () => {

@@ -4,10 +4,10 @@ import { calcTotal, ccyFormat, groupProducts, isCartEmpty } from "./cart.motor";
 import classes from "./css/calc-total.module.css";
 import { NavLink } from "react-router-dom";
 import React from "react";
-import { cartContext } from "../../cartContext";
+import { appContext } from "../../appContext";
 
 export const CalcTotal: React.FC = () => {
-	const { productsInCart } = React.useContext(cartContext);
+	const { productsInCart } = React.useContext(appContext).cartCTX;
 	const productsGrouped = groupProducts(productsInCart);
 	const total = calcTotal(productsGrouped);
 

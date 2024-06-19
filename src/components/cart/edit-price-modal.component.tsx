@@ -6,7 +6,7 @@ import Modal from "@mui/material/Modal";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { ProductsInCart } from "./cart.model";
-import { cartContext } from "../../cartContext";
+import { appContext } from "../../appContext";
 import { generateCustomID } from "../products/products.motor";
 import { countNumberOfSameProducts, deleteProductFromCart } from "./cart.motor";
 import { Product } from "../products/products.model";
@@ -18,7 +18,7 @@ interface EditPriceModalProps {
 
 export const EditPriceModal: React.FC<EditPriceModalProps> = (props) => {
 	const { desc, unit, id, category, variantName } = props.productInfo;
-	const { productsInCart, setProductsInCart } = React.useContext(cartContext);
+	const { productsInCart, setProductsInCart } = React.useContext(appContext).cartCTX;
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);

@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { cartContext } from "../../cartContext";
+import { appContext } from "../../appContext";
 import { PRODUCT_VARIANTS, Product } from "./products.model";
 import { searchVariantById } from "./products.motor";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
@@ -16,7 +16,7 @@ interface SelectVariantProps {
 
 export const SelectVariant: React.FC<SelectVariantProps> = (props) => {
 	const { product } = props;
-	const { productsInCart, setProductsInCart } = React.useContext(cartContext);
+	const { productsInCart, setProductsInCart } = React.useContext(appContext).cartCTX;
 
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);

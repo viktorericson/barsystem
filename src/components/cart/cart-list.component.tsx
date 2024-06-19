@@ -11,11 +11,11 @@ import { CartItem } from "./cart-item.component";
 import { Box } from "@mui/material";
 import classes from "./css/cart-list.module.css";
 import { CalcTotal } from "./calc-total.component";
-import { cartContext } from "../../cartContext";
+import { appContext } from "../../appContext";
 import { isUserInHome } from "../../router/router.motor";
 
 export const CartList: React.FC = () => {
-	const { productsInCart } = React.useContext(cartContext);
+	const { productsInCart } = React.useContext(appContext).cartCTX;
 	const productsGrouped = groupProducts(productsInCart);
 
 	return (

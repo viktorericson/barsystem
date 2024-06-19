@@ -13,7 +13,7 @@ export const CalcTotal: React.FC = () => {
 
 	const enableCartButton = () => {
 		let cartButton;
-		if (isCartEmpty(productsInCart)) {
+		if (!isCartEmpty(productsInCart)) {
 			cartButton = (
 				<Button
 					component={NavLink}

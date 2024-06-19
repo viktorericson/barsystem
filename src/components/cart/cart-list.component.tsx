@@ -6,12 +6,13 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { groupProducts } from "./cart.motor";
+import { groupProducts, isCartEmpty } from "./cart.motor";
 import { CartItem } from "./cart-item.component";
 import { Box } from "@mui/material";
 import classes from "./css/cart-list.module.css";
 import { CalcTotal } from "./calc-total.component";
 import { cartContext } from "../../cartContext";
+import { isUserInHome } from "../../router/router.motor";
 
 export const CartList: React.FC = () => {
 	const { productsInCart } = React.useContext(cartContext);
@@ -25,10 +26,10 @@ export const CartList: React.FC = () => {
 				elevation={3}
 				square
 			>
-				<Table aria-label="spanning table" className={(productsGrouped.length === 0) ? classes["table-body"] : ""}>
+				<Table aria-label="spanning table" className={(isCartEmpty(productsInCart) && isUserInHome()) ? classes["table-body"] : ""}>
 					<TableHead>
 						<TableRow className={classes["table-header"]}>
-							<TableCell >Product</TableCell>
+							<TableCell>Product</TableCell>
 							<TableCell align="center">Qty.</TableCell>
 							<TableCell align="right">Price</TableCell>
 							<TableCell align="right">Sum</TableCell>

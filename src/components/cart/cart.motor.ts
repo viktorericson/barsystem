@@ -35,7 +35,7 @@ export const calcTotal = (products: ProductsInCart[]) => {
 }
 
 export const isCartEmpty = (products: Product[]) => {
-	return products.length > 0;
+	return !(products.length > 0);
 }
 
 export const searchProductByIdInCart = (id: number, productsInCart: Product[]): Product => {

@@ -29,7 +29,6 @@
 /* XL: 1536px*/
 @media (width < 600px) {
 	.cart-container {
-		width: 90vw;
 		height: auto;
 	}
 }

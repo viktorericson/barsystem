@@ -45,7 +45,7 @@ export const CartItem: React.FC<CartItemProps> = (props) => {
 
 	return (
 		<TableRow>
-			<TableCell>
+			<TableCell sx={{p:0, pl:1}}>
 				<EditPriceModal productInfo={props.productInfo} />
 				{formattedDescription()}
 				<br></br>
@@ -70,7 +70,7 @@ export const CartItem: React.FC<CartItemProps> = (props) => {
 					</Typography>
 				)}
 			</TableCell>
-			<TableCell align="center">
+			<TableCell sx={{display:"flex", alignItems:"center", justifyContent:"center"}}>
 				<IconButton onClick={() => subtractQtyFromCart(id)}>
 					<RemoveCircleOutlineIcon className={classes.icon} />
 				</IconButton>
@@ -81,7 +81,7 @@ export const CartItem: React.FC<CartItemProps> = (props) => {
 			</TableCell>
 			<TableCell align="right">{ccyFormat(unit)}</TableCell>
 			<TableCell align="right">{ccyFormat(priceRow(qty, unit))}</TableCell>
-			<TableCell align="right">
+			<TableCell align="right" sx={{p:0, pr:1}}>
 				<IconButton onClick={() => deleteFromCart(id)}>
 					<DeleteIcon className={classes["delete-icon"]} />
 				</IconButton>

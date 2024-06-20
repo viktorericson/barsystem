@@ -1,0 +1,12 @@
+.accordion-details-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.id {
+	font-size: 14px;
+	font-weight: lighter;
+	color: lightslategray;
+}

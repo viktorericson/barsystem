@@ -1,0 +1,16 @@
+.order-accordion {
+	width: 100%;
+}
+
+.accordion-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.accordion-badge-container {
+	display: flex;
+	align-items: center;
+	gap: 48px;
+	margin-right: 32px;
+}

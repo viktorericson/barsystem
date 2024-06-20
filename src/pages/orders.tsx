@@ -1,32 +1,29 @@
 import React from "react";
-import { Container, Typography } from "@mui/material";
-import classes from "./css/cart.module.css"
+import {
+	Box,
+	Container,
+	Typography,
+} from "@mui/material";
 import { appContext } from "../appContext";
+import { OrderItem } from "../components/orders/order-item.component";
+import { ordersNewDateFirst } from "../components/orders/order.motor";
+import classes from "./css/orders.module.css";
 
 export const Orders: React.FC = () => {
 	const { orders } = React.useContext(appContext).orderCTX;
 
+	const ordersByDate = ordersNewDateFirst(orders);
+
 	return (
 		<Container maxWidth="xl" className={classes["main-container"]}>
-			<Typography variant="h5" component="h2" sx={{mb:1}}>Orders</Typography>
-			{
-				orders.map((order, index) => (
-					<div key={index} className={classes["order-container"]}>
-						<Typography variant="h6" component="h3" sx={{mb:1}}>Order {index + 1}</Typography>
-						<Typography variant="body1" component="p" sx={{mb:1}}>Date: {order.date}</Typography>
-						<Typography variant="body1" component="p" sx={{mb:1}}>Total: {order.total}€</Typography>
-						<Typography variant="body1" component="p" sx={{mb:1}}>Products:</Typography>
-						{
-							order.products.map((product, index) => (
-								<div key={index} className={classes["product-container"]}>
-									<Typography variant="body1" component="p" sx={{mb:1}}>{product.name}</Typography>
-									<Typography variant="body1" component="p" sx={{mb:1}}>Qty: {product.price}</Typography>
-								</div>
-							))
-						}
-					</div>
-				))
-			}
+			<Typography variant="h5" component="h2" className={classes.header} >
+				Orders
+			</Typography>
+			<Box className={classes["orders-container"]}>
+				{ordersByDate.map((order) => (
+					<OrderItem key={order.id} order={order} />
+				))}
+			</Box>
 		</Container>
 	);
 };

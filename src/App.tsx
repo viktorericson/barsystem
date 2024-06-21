@@ -12,7 +12,7 @@ import { DEFAULT_ORDERS, Order } from "./components/orders/order.model";
 
 function App() {
 	const [productsInCart, setProductsInCart] = React.useState<Product[]>(window.sessionStorage.getItem("cart") ? JSON.parse(window.sessionStorage.getItem("cart")!) : []);
-	const [orders, setOrders] = React.useState<Order[]>(DEFAULT_ORDERS);
+	const [orders, setOrders] = React.useState<Order[]>(window.localStorage.getItem("orders") ? JSON.parse(window.localStorage.getItem("orders")!) : DEFAULT_ORDERS);
 	const [filter, setFilter] = React.useState<string>(CATEGORIES.ALL);
 
 	const applyFilter = (category: string) => {
@@ -22,6 +22,10 @@ function App() {
 	useEffect(() => {
     window.sessionStorage.setItem("cart", JSON.stringify(productsInCart));
   }, [productsInCart]);
+
+	useEffect(() => {
+    window.localStorage.setItem("orders", JSON.stringify(orders));
+  }, [orders]);
 
 	return (
 		<>

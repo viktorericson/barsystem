@@ -4,7 +4,7 @@ export interface Order {
 	id: string;
 	products: Product[];
 	total: number;
-	date: Date;
+	date: string;
 	isCompleted: boolean;
 }
 
@@ -33,7 +33,7 @@ export const DEFAULT_ORDERS: Order[] = [
 			},
 		],
 		total: 10.50,
-		date: new Date("2024-06-19"),
+		date: "2024-06-19",
 		isCompleted: false
 	},
 	{
@@ -60,7 +60,7 @@ export const DEFAULT_ORDERS: Order[] = [
 			},
 		],
 		total: 8.50,
-		date: new Date("2024-06-20"),
+		date: "2024-06-20",
 		isCompleted: true
 	}
 ]

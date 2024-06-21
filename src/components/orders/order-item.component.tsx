@@ -3,6 +3,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Order } from "./order.model";
 import { OrderDetails } from "./order-details.component";
 import classes from "./css/order-item.module.css";
+import { ccyFormat } from "./order.motor";
 
 interface OrderProps {
 	order : Order;
@@ -10,6 +11,8 @@ interface OrderProps {
 
 export const OrderItem: React.FC<OrderProps> = (props) => {
 	const { order } = props;
+
+
 
 	return (
 		<Accordion key={order.id} className={classes["order-accordion"]}>
@@ -25,13 +28,14 @@ export const OrderItem: React.FC<OrderProps> = (props) => {
 									<Typography variant="body1" component="p">
 										<strong>{order.id}</strong>
 									</Typography>
-									<Typography variant="body2" component="p">
-										{order.date.toLocaleDateString("es-ES")}
+									<Typography variant="body2" component="p" className={classes.date}>
+										
+										{new Date(order.date).toLocaleDateString("es-ES")}
 									</Typography>
 								</Box>
 								<Box className={classes["accordion-badge-container"]}>
 									<Typography variant="body2" component="p">
-										Total: {order.total} €
+										Total: {ccyFormat(order.total)} €
 									</Typography>
 									{order.isCompleted ? (
 										<Badge badgeContent="Completed" color="success"></Badge>

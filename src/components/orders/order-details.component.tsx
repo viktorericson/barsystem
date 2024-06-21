@@ -20,7 +20,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = (props) => {
 								className={classes["accordion-details-container"]}
 								>
 									<Typography variant="body1" component="p">
-										{product.qty} x {product.desc} {product.variantName ? `(${product.variantName})` : ""} <span className={classes.id}>id:{product.id}</span>
+										{product.qty} x {product.desc}  <span className={classes.id}>id:{product.id}</span>
 									</Typography>
 									<Typography variant="body1" component="p">
 									({ccyFormat(product.unit)} €/u)

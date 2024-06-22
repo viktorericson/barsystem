@@ -12,11 +12,16 @@ import { Box } from "@mui/material";
 import classes from "./css/cart-list.module.css";
 import { CalcTotal } from "./calc-total.component";
 import { appContext } from "../../appContext";
-import { isUserInHome } from "../../router/router.motor";
+import { useLocation } from 'react-router-dom';
 
 export const CartList: React.FC = () => {
 	const { productsInCart } = React.useContext(appContext).cartCTX;
 	const productsGrouped = groupProducts(productsInCart);
+	const location = useLocation();
+
+	const isUserInHome = () => {
+		return location.pathname === "/";
+	}
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>

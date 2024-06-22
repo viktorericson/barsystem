@@ -53,3 +53,8 @@ export const deleteProductFromCart = (id: number, productsInCart: Product[]): Pr
 export const countNumberOfSameProducts = (id: number, productsInCart: Product[]): number => {
 	return productsInCart.filter((product) => product.id === id).length;
 }
+
+export const formattedDescription = (desc : string) => {
+	const trimmedDesc = desc.length > 15 ? `${desc.substring(0, 15)}…` : desc;
+	return trimmedDesc;
+};

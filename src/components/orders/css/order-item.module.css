@@ -10,9 +10,9 @@
 
 .accordion-badge-container {
 	display: flex;
+	flex-direction: column;
 	align-items: center;
-	gap: 48px;
-	margin-right: 32px;
+	gap: 4px;
 }
 
 .date {

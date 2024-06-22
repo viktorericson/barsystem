@@ -1,6 +1,6 @@
-import { IconButton, TableCell, TableRow, Typography } from "@mui/material";
+import { Box, Chip, IconButton, TableCell, TableRow, Typography } from "@mui/material";
 import { ProductsInCart } from "./cart.model";
-import { ccyFormat, priceRow, searchProductByIdInCart } from "./cart.motor";
+import { ccyFormat, formattedDescription, priceRow, searchProductByIdInCart } from "./cart.motor";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -16,11 +16,6 @@ interface CartItemProps {
 export const CartItem: React.FC<CartItemProps> = (props) => {
 	const { desc, qty, unit, id, category, variantName } = props.productInfo;
 	const { productsInCart, setProductsInCart } = React.useContext(appContext).cartCTX;
-
-	const formattedDescription = () => {
-		const trimmedDesc = desc.length > 15 ? `${desc.substring(0, 15)}…` : desc;
-		return trimmedDesc;
-	};
 
 	const addQtyToCart = (id: number) => {
 		const productFinded = searchProductByIdInCart(id, productsInCart);
@@ -47,8 +42,17 @@ export const CartItem: React.FC<CartItemProps> = (props) => {
 		<TableRow>
 			<TableCell sx={{p:0, pl:1}}>
 				<EditPriceModal productInfo={props.productInfo} />
-				{formattedDescription()}
-				<br></br>
+				{formattedDescription(desc)}
+				<Box sx={{display:"flex", alignItems:"center", justifyContent:"left"}}>
+				{(variantName) && (
+					<Typography
+						component="p"
+						variant="body2"
+						className={classes["variant-label"]}
+					>
+						<Chip color="default" variant="filled" label={variantName} sx={{height:"auto", m:0.5}}/>
+					</Typography>
+				)}
 				{(category === "custom" || id > 1000) && (
 					<Typography
 						component="p"
@@ -56,21 +60,13 @@ export const CartItem: React.FC<CartItemProps> = (props) => {
 						className={classes["custom-label"]}
 					>
 						{" "}
-						*Custom
+						<Chip color="info" variant="outlined" label="Custom" sx={{height:"auto", m:0.5}}/>
 					</Typography>
 				)}
-				{(variantName) && (
-					<Typography
-						component="p"
-						variant="body2"
-						className={classes["variant-label"]}
-					>
-						{"➜ "}
-						{variantName}
-					</Typography>
-				)}
+				</Box>
 			</TableCell>
-			<TableCell sx={{display:"flex", alignItems:"center", justifyContent:"center"}}>
+			<TableCell >
+				<Box sx={{display:"flex", alignItems:"center", justifyContent:"center"}}>
 				<IconButton onClick={() => subtractQtyFromCart(id)}>
 					<RemoveCircleOutlineIcon className={classes.icon} />
 				</IconButton>
@@ -78,6 +74,7 @@ export const CartItem: React.FC<CartItemProps> = (props) => {
 				<IconButton onClick={() => addQtyToCart(id)}>
 					<AddCircleOutlineIcon className={classes.icon} />
 				</IconButton>
+				</Box>
 			</TableCell>
 			<TableCell align="right">{ccyFormat(unit)}</TableCell>
 			<TableCell align="right">{ccyFormat(priceRow(qty, unit))}</TableCell>

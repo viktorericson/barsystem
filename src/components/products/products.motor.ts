@@ -39,6 +39,7 @@ export const generateCustomID = (productsInCart: Product[]): number => {
 	let newCustomId;
 	do {
 		newCustomId = 1000 + Math.floor(Math.random() * 1000);
+		console.log(newCustomId);
 	} while (existsIDInCart(newCustomId, productsInCart));
 	return newCustomId;
 }

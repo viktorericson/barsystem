@@ -1,4 +1,4 @@
-import { AccordionDetails, Box, Divider, Typography } from "@mui/material";
+import { AccordionDetails, Box, Chip, Divider, Typography } from "@mui/material";
 import { Order } from "./order.model";
 import { groupProducts } from "../cart/cart.motor";
 import { ccyFormat } from "./order.motor";
@@ -10,7 +10,6 @@ interface OrderDetailsProps {
 
 export const OrderDetails: React.FC<OrderDetailsProps> = (props) => {
 	const { order } = props;
-
 	const productsGrouped = groupProducts(order.products);
 
 	return (
@@ -20,7 +19,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = (props) => {
 								className={classes["accordion-details-container"]}
 								>
 									<Typography variant="body1" component="p">
-										{product.qty} x {product.desc}  <span className={classes.id}>id:{product.id}</span>
+										{product.qty} x {product.desc}  <Chip color="default" variant="filled" label={`id: ${product.id}`} sx={{height:"auto"}} size="small"/>
 									</Typography>
 									<Typography variant="body1" component="p">
 									({ccyFormat(product.unit)} €/u)

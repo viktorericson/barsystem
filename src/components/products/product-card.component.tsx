@@ -8,11 +8,11 @@ import {
 } from "@mui/material";
 import { Product } from "./products.model";
 import classes from "./css/products-card.module.css";
-import { enqueueSnackbar } from "notistack";
 import { SelectVariant } from "./modal-select-variant.component";
 import React from "react";
 import { appContext } from "../../appContext";
 import { searchProductById } from "./products.motor";
+import { openSnackBarProductAdded } from "../snackbar/snackbar.motor";
 
 interface ProductCardProps {
 	product: Product;
@@ -22,17 +22,9 @@ export const ProductCard: React.FC<ProductCardProps> = (props) => {
 	const { name, price, variants } = props.product;
 	const { productsInCart, setProductsInCart } = React.useContext(appContext).cartCTX;
 	
-	const openSnackBar = () => {
-		enqueueSnackbar(`${name} added! (${price.toFixed(2)}€)`, {
-			variant: "success",
-			style: { opacity: "90%" },
-		});
-	};
-
 	const addToCart = (id: number) => {
 		const productFinded = searchProductById(id);
 		setProductsInCart([...productsInCart, productFinded]);
-		window.sessionStorage.setItem("cart", JSON.stringify(productsInCart));
 	};
 
 	const createButton = () => {
@@ -47,7 +39,7 @@ export const ProductCard: React.FC<ProductCardProps> = (props) => {
 					variant="outlined"
 					onClick={() => {
 						addToCart(props.product.id);
-						openSnackBar();
+						openSnackBarProductAdded(name, price);
 					}}
 				>
 					Add
@@ -70,7 +62,7 @@ export const ProductCard: React.FC<ProductCardProps> = (props) => {
 				</Typography>
 			</CardContent>
 			<CardActions className={classes["card-actions"]}>
-				<Typography gutterBottom variant="body2" component="h3">
+				<Typography gutterBottom variant="body2" component="p">
 					{price.toFixed(2)}€
 				</Typography>
 				{createButton()}

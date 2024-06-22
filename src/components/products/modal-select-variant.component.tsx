@@ -7,8 +7,8 @@ import { appContext } from "../../appContext";
 import { PRODUCT_VARIANTS, Product } from "./products.model";
 import { searchVariantById } from "./products.motor";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
-import { enqueueSnackbar } from "notistack";
 import classes from "./css/modal-select-variant.module.css";
+import { openSnackBarProductAdded } from "../snackbar/snackbar.motor";
 
 interface SelectVariantProps {
 	product: Product;
@@ -35,13 +35,6 @@ export const SelectVariant: React.FC<SelectVariantProps> = (props) => {
 		setAlignment(newAlignment);
 	};
 
-	const openSnackBar = (name: string, price: number) => {
-		enqueueSnackbar(`${name} added! (${price.toFixed(2)}€)`, {
-			variant: "success",
-			style: { opacity: "90%" },
-		});
-	};
-
 	const addCustomProduct = (e: React.FormEvent) => {
 		e.preventDefault();
 		if (alignment === "") {
@@ -55,7 +48,7 @@ export const SelectVariant: React.FC<SelectVariantProps> = (props) => {
 			setProductsInCart([...productsInCart, productFinded]);
 			setAlignment("");
 			setErrorMesage(<></>);
-			openSnackBar(productFinded.name, productFinded.price);
+			openSnackBarProductAdded(productFinded.name, productFinded.price);
 			setOpen(false);
 		}
 	};

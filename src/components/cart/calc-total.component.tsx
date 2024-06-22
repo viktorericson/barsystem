@@ -7,6 +7,7 @@ import { appContext } from "../../appContext";
 import { generateNewOrderId, getLastOrderId } from "../orders/order.motor";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
+import { openSnackBarOrderRegistered } from "../snackbar/snackbar.motor";
 
 
 export const CalcTotal: React.FC = () => {
@@ -58,6 +59,12 @@ export const CalcTotal: React.FC = () => {
 		}
 	};
 
+	const throwSnackBar = () => {
+		const lastOrderId = getLastOrderId(orders);
+		const newOrderId = generateNewOrderId(lastOrderId);
+		openSnackBarOrderRegistered(newOrderId);
+	}
+
 	return (
 		<Paper className={classes["container-total"]} elevation={3} square>
 			<Typography variant="body1" component="h2" className={classes["total-font"]}>
@@ -92,7 +99,10 @@ export const CalcTotal: React.FC = () => {
 							color="success"
 							variant="outlined"
 							sx={{ mt: 2 }}
-							onClick={addNewOrder}
+							onClick={() => {
+								addNewOrder();
+								throwSnackBar();
+							}}
 						>
 							Confirm order
 						</Button>

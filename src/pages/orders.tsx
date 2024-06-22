@@ -16,7 +16,7 @@ export const Orders: React.FC = () => {
 
 	return (
 		<Container maxWidth="xl" className={classes["main-container"]}>
-			<Typography variant="h5" component="h2" className={classes.header} >
+			<Typography variant="h5" component="h1" className={classes.header} >
 				Orders
 			</Typography>
 			<Box className={classes["orders-container"]}>

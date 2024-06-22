@@ -1,4 +1,4 @@
-import { Accordion, AccordionSummary, Badge, Box, Container, Typography } from "@mui/material"
+import { Accordion, AccordionSummary, Box, Chip, Container, Typography } from "@mui/material"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Order } from "./order.model";
 import { OrderDetails } from "./order-details.component";
@@ -11,8 +11,6 @@ interface OrderProps {
 
 export const OrderItem: React.FC<OrderProps> = (props) => {
 	const { order } = props;
-
-
 
 	return (
 		<Accordion key={order.id} className={classes["order-accordion"]}>
@@ -38,9 +36,9 @@ export const OrderItem: React.FC<OrderProps> = (props) => {
 										Total: {ccyFormat(order.total)} €
 									</Typography>
 									{order.isCompleted ? (
-										<Badge badgeContent="Completed" color="success"></Badge>
+										<Chip color="success" variant="filled" label="Completed" sx={{height:"auto"}}/>
 									) : (
-										<Badge badgeContent="Pending" color="warning"></Badge>
+										<Chip color="warning" variant="filled" label="Pending" sx={{height:"auto"}}/>
 									)}
 								</Box>
 							</Container>

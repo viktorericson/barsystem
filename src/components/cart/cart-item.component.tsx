@@ -1,13 +1,26 @@
-import { Box, Chip, IconButton, TableCell, TableRow, Typography } from "@mui/material";
+import {
+	Box,
+	Chip,
+	IconButton,
+	TableCell,
+	TableRow,
+	Typography,
+} from "@mui/material";
 import { ProductsInCart } from "./cart.model";
-import { ccyFormat, formattedDescription, priceRow, searchProductByIdInCart } from "./cart.motor";
+import {
+	ccyFormat,
+	formattedDescription,
+	priceRow,
+	searchProductByIdInCart,
+} from "./cart.motor";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import React from "react";
 import { appContext } from "../../appContext";
 import { EditPriceModal } from "./edit-price-modal.component";
-import classes from "./css/cart-item.module.css"
+import classes from "./css/cart-item.module.css";
+import { openSnackBarDeleteProduct } from "../snackbar/snackbar.motor";
 
 interface CartItemProps {
 	productInfo: ProductsInCart;
@@ -15,7 +28,8 @@ interface CartItemProps {
 
 export const CartItem: React.FC<CartItemProps> = (props) => {
 	const { desc, qty, unit, id, category, variantName } = props.productInfo;
-	const { productsInCart, setProductsInCart } = React.useContext(appContext).cartCTX;
+	const { productsInCart, setProductsInCart } =
+		React.useContext(appContext).cartCTX;
 
 	const addQtyToCart = (id: number) => {
 		const productFinded = searchProductByIdInCart(id, productsInCart);
@@ -40,46 +54,63 @@ export const CartItem: React.FC<CartItemProps> = (props) => {
 
 	return (
 		<TableRow>
-			<TableCell sx={{p:0, pl:1}}>
+			<TableCell sx={{ p: 0, pl: 1 }}>
 				<EditPriceModal productInfo={props.productInfo} />
 				{formattedDescription(desc)}
-				<Box sx={{display:"flex", alignItems:"center", justifyContent:"left"}}>
-				{(variantName) && (
-					<Typography
-						component="p"
-						variant="body2"
-						className={classes["variant-label"]}
-					>
-						<Chip color="default" variant="filled" label={variantName} sx={{height:"auto", m:0.5}}/>
-					</Typography>
-				)}
-				{(category === "custom" || id > 1000) && (
-					<Typography
-						component="p"
-						variant="body2"
-						className={classes["custom-label"]}
-					>
-						{" "}
-						<Chip color="info" variant="outlined" label="Custom" sx={{height:"auto", m:0.5}}/>
-					</Typography>
-				)}
+				<Box sx={{ display: "flex", alignItems: "center", justifyContent: "left" }}>
+					{variantName && (
+						<Typography
+							component="p"
+							variant="body2"
+							className={classes["variant-label"]}
+						>
+							<Chip
+								color="default"
+								variant="filled"
+								label={variantName}
+								sx={{ height: "auto", m: 0.5 }}
+							/>
+						</Typography>
+					)}
+					{(category === "custom" || id > 1000) && (
+						<Typography
+							component="p"
+							variant="body2"
+							className={classes["custom-label"]}
+						>
+							{" "}
+							<Chip
+								color="info"
+								variant="outlined"
+								label="Custom"
+								sx={{ height: "auto", m: 0.5 }}
+							/>
+						</Typography>
+					)}
 				</Box>
 			</TableCell>
-			<TableCell >
-				<Box sx={{display:"flex", alignItems:"center", justifyContent:"center"}}>
-				<IconButton onClick={() => subtractQtyFromCart(id)}>
-					<RemoveCircleOutlineIcon className={classes.icon} />
-				</IconButton>
-				{qty}
-				<IconButton onClick={() => addQtyToCart(id)}>
-					<AddCircleOutlineIcon className={classes.icon} />
-				</IconButton>
+			<TableCell>
+				<Box
+					sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+				>
+					<IconButton onClick={() => subtractQtyFromCart(id)}>
+						<RemoveCircleOutlineIcon className={classes.icon} />
+					</IconButton>
+					{qty}
+					<IconButton onClick={() => addQtyToCart(id)}>
+						<AddCircleOutlineIcon className={classes.icon} />
+					</IconButton>
 				</Box>
 			</TableCell>
 			<TableCell align="right">{ccyFormat(unit)}</TableCell>
 			<TableCell align="right">{ccyFormat(priceRow(qty, unit))}</TableCell>
-			<TableCell align="right" sx={{p:0, pr:1}}>
-				<IconButton onClick={() => deleteFromCart(id)}>
+			<TableCell align="right" sx={{ p: 0, pr: 1 }}>
+				<IconButton
+					onClick={() => {
+						deleteFromCart(id);
+						openSnackBarDeleteProduct(desc);
+					}}
+				>
 					<DeleteIcon className={classes["delete-icon"]} />
 				</IconButton>
 			</TableCell>

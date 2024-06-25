@@ -50,7 +50,7 @@ export const ProductCard: React.FC<ProductCardProps> = (props) => {
 
 	
 	return (
-		<Card>
+		<Card className={classes["card"]}>
 			<CardMedia
 				component="img"
 				alt={name}

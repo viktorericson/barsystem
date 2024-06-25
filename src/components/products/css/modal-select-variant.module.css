@@ -7,6 +7,11 @@
 	padding: 0;
 }
 
+.select-button:hover{
+	background-color: #2E7D32;
+	color: white;
+}
+
 .modal-title {
 	margin-top: 16px;
 }

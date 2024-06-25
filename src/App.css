@@ -1,14 +1,17 @@
 ::-webkit-scrollbar {
 	width: 10px;
 	height: 10px;
+	
 }
 
 ::-webkit-scrollbar-track {
-	background: #f1f1f1;
+	background: #f5f6f8;
+	border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
 	background: #CCC;
+	border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -20,5 +23,5 @@
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
-	background-color: #D3D3D3;
+	background-color: #f5f6f8;
 }

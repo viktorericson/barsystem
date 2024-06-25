@@ -28,7 +28,7 @@ export const CartList: React.FC = () => {
 			<TableContainer
 				component={Paper}
 				className={classes["cart-container"]}
-				elevation={3}
+				elevation={5}
 				square
 			>
 				<Table aria-label="spanning table" className={(isCartEmpty(productsInCart) && isUserInHome()) ? classes["table-body"] : ""}>

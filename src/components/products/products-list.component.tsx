@@ -19,7 +19,7 @@ export const ProductsList: React.FC<ProductsListProps> = (props) => {
 	const categoryName = <strong>{returnCategoryName(filter)}</strong>;
 
 	return (
-		<Paper className={classes["products-container"]} elevation={3} square>
+		<Paper className={classes["products-container"]} elevation={5} square>
 			<Box className={classes["title-container"]}>
 				<Typography
 					className={classes["products-title"]}

@@ -57,7 +57,7 @@ export const Navbar: React.FC<NavBarProps> = (props) => {
 	return (
 		<>
 			<Box sx={{ display: "flex" }}></Box>
-			<AppBar position="sticky" color="default">
+			<AppBar position="sticky" color="default" sx={{backgroundColor:"white"}}>
 				<Toolbar
 					sx={{
 						justifyContent: location.pathname === "/" ? "space-between" : "flex-end",

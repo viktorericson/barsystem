@@ -13,3 +13,10 @@ export const openSnackBarOrderRegistered = (id:string) => {
 		style: { opacity: "90%" },
 	});
 };
+
+export const openSnackBarDeleteProduct = (name: string) => {
+	enqueueSnackbar(`${name} deleted!`, {
+		variant: "error",
+		style: { opacity: "90%" },
+	});
+}

@@ -2,6 +2,8 @@
 
 This project is a point of sale system developed using React and Material-UI (MUI). It provides a user-friendly interface for managing sales transactions ando orders. The React framework allows for efficient component-based development, while MUI provides a set of pre-designed UI components for a modern and visually appealing interface.
 
+[🚀 Live Demo](https://react-tpv.netlify.app/)
+
 ![Main Page](/public/imgs/readme/main-page.png)
 
 ## Feature: Adding Products

@@ -27,5 +27,11 @@
 		"emailbtn-ok": "Send til email",
 		"emailreceipt": "Ønsker du at få en kvittering?",
 		"pendingpayment": "Afventer Betaling"
+	},
+	"product": {
+		"mixer": "Ja tak",
+		"neat": "Nej tak",
+		"select": "Vælg",
+		"selectvarHead": "Opblanding:"
 	}
 }

@@ -37,7 +37,6 @@
       "OPT": 0,
       "MEG": 0,
       "enabled": true,
-      "variants": true,
       "img": "Rum.png"
     },
     {
@@ -66,26 +65,18 @@
   "PRODUCT_VARIANTS": [
     {
       "name": "Rum",
-      "variantName": "Pepsi",
-      "price": 4.0,
+      "variantName": "mixer",
+      "price": 50,
       "category": "Spirits",
       "id": 101,
       "originalId": 3
     },
     {
       "name": "Rum",
-      "variantName": "Sprite",
-      "price": 4.0,
+      "variantName": "neat",
+      "price": 30,
       "category": "Spirits",
       "id": 102,
-      "originalId": 3
-    },
-    {
-      "name": "Rum",
-      "variantName": "None",
-      "price": 3.0,
-      "category": "Spirits",
-      "id": 103,
       "originalId": 3
     }
   ]

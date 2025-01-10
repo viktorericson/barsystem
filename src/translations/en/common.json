@@ -27,5 +27,11 @@
 		"emailbtn-ok": "Send to email",
 		"emailreceipt": "Do you want a receipt? ",
 		"pendingpayment": "Awaiting Payment"
+	},
+	"product": {
+		"mixer": "Yes please",
+		"neat": "No thanks",
+		"select": "Select",
+		"selectvarHead": "Mixer:"
 	}
 }

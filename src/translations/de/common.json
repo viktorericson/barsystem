@@ -27,5 +27,11 @@
 		"emailbtn-ok": "Als E-Mail senden",
 		"emailreceipt": "Möchten Sie eine Quittung?",
 		"pendingpayment": "Warten auf die Zahlung"
+	},
+	"product": {
+		"mixer": "Ja danke",
+		"neat": "Nein danke",
+		"select": "Wählen",
+		"selectvarHead": "Verwechseln:"
 	}
 }

@@ -20,6 +20,8 @@ import { useEffect, useRef } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { Checkmark } from "react-checkmark";
 import paymentGif from "../../../public/imgs/gifs/payment.gif";
+import CancelIcon from "@mui/icons-material/Cancel";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 export const CalcTotal: React.FC = () => {
   const { productsInCart, setProductsInCart } =
@@ -37,7 +39,7 @@ export const CalcTotal: React.FC = () => {
   const inactivityTimeout = useRef<NodeJS.Timeout | null>(null);
   const decisionTimeout = useRef<NodeJS.Timeout | null>(null);
   const [openInactivityModal, setOpenInactivityModal] = React.useState(false);
-  const [recievedPayment, setRecievedPayment] = React.useState(false);
+  const [recievedPayment, setRecievedPayment] = React.useState(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -139,20 +141,37 @@ export const CalcTotal: React.FC = () => {
       </Button>
     );
   };
+
   const handleRecievePayment = async () => {
     const lastOrderId = getLastOrderId(orders);
     const newOrderId = generateNewOrderId(lastOrderId);
-    const newOrder = {
-      id: newOrderId,
-      products: productsInCart,
-      total: total,
-      email,
-      date: new Date().toString(),
-      isCompleted: true,
+
+    // Aggregate products by name and quantity
+    const uniqueProducts = productsInCart.reduce((acc, product) => {
+      const existingProduct = acc.find((p) => p.name === product.name);
+      if (existingProduct) {
+        existingProduct.quantity += 1;
+      } else {
+        acc.push({ name: product.name, quantity: 1 });
+      }
+      return acc;
+    }, [] as { name: string; quantity: number }[]);
+
+    const getLang = () => {
+      const cancelBtnText = t("order.cancelbtn");
+      if (cancelBtnText === "Til Betaling") return "dk";
+      if (cancelBtnText === "Zur Kasse Gehen") return "de";
+      if (cancelBtnText === "Place Order") return "en";
+      return "en"; // Default to English if no match
+    };
+    // Prepare payload
+    const payload = {
+      products: uniqueProducts,
+      total: total * 100,
+      lang: getLang(),
     };
 
     // Close the Email Modal and Open the Loading Modal
-
     setOpenLoadingModal(true);
 
     try {
@@ -161,7 +180,7 @@ export const CalcTotal: React.FC = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(newOrder),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
@@ -175,7 +194,13 @@ export const CalcTotal: React.FC = () => {
       }
 
       // Update Orders and Clear Cart
-      setOrders([...orders, newOrder]);
+      setOrders([
+        ...orders,
+        ...uniqueProducts.map((order) => ({
+          ...order,
+          total: total,
+        })),
+      ]);
       setProductsInCart([]);
 
       // Close the Loading Modal on Success
@@ -183,17 +208,21 @@ export const CalcTotal: React.FC = () => {
 
       setTimeout(() => {
         setOpenLoadingModal(false);
-        setRecievedPayment(false);
+        setRecievedPayment(null);
         setOpenEmailModal(true);
-      }, 2000); // 2 seconds
+      }, 3000); // 2 seconds
     } catch (error) {
       console.error("Failed to send order:", error);
 
       // Close the Loading Modal on Failure
       setRecievedPayment(false);
 
+      setTimeout(() => {
+        setOpenLoadingModal(false);
+        setRecievedPayment(null);
+      }, 2000); // 2 seconds
+
       // Optionally, show an error notification or modal here
-      alert("An error occurred while processing your order. Please try again.");
     }
   };
 
@@ -206,13 +235,18 @@ export const CalcTotal: React.FC = () => {
     setEmailError(false);
     const lastOrderId = getLastOrderId(orders);
     const newOrderId = generateNewOrderId(lastOrderId);
-    const newOrder = {
+    const newOrderForEmail = {
       id: newOrderId,
       products: productsInCart,
       total: total,
       email,
       date: new Date().toString(),
       isCompleted: true,
+    };
+
+    const newOrder = {
+      products: productsInCart,
+      total: total,
     };
 
     // Close the Email Modal and Open the Loading Modal
@@ -361,25 +395,22 @@ export const CalcTotal: React.FC = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box
-          className={classes["modal-style"]}
-          sx={{
-            textAlign: "center",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+        <Box className={classes["modal-style"]}>
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            sx={{ fontWeight: "bold", fontSize: 20 }}
+          >
             {t("order.pendingpayment")}
           </Typography>
-          <img src={paymentGif} alt="" />
-          {/* {recievedPayment ? (
-            <Checkmark size="100" />
+          {recievedPayment === null ? (
+            <img src={paymentGif} alt="" style={{ width: "340px" }} />
+          ) : recievedPayment ? (
+            <CheckCircleIcon sx={{ fontSize: 150, color: "green" }} />
           ) : (
-            
-          )} */}
+            <CancelIcon sx={{ fontSize: 150, color: "red" }} />
+          )}
         </Box>
       </Modal>
       {/* Inactivity Modal */}

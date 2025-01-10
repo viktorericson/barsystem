@@ -9,6 +9,7 @@ import { searchVariantById } from "./products.motor";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import classes from "./css/modal-select-variant.module.css";
 import { openSnackBarProductAdded } from "../snackbar/snackbar.motor";
+import { useTranslation } from "react-i18next";
 
 interface SelectVariantProps {
   product: Product;
@@ -26,6 +27,7 @@ export const SelectVariant: React.FC<SelectVariantProps> = (props) => {
     setAlignment("");
     setErrorMesage(<></>);
   };
+  const { t } = useTranslation("common");
 
   const [alignment, setAlignment] = React.useState("");
   const [errorMesage, setErrorMesage] = React.useState(<></>);
@@ -68,7 +70,7 @@ export const SelectVariant: React.FC<SelectVariantProps> = (props) => {
           variant="body2"
           sx={{ fontWeight: "bold", fontSize: 20, margin: 0.5 }}
         >
-          Select
+          {t("product.select")}
         </Typography>
       </Button>
       <Modal
@@ -88,7 +90,7 @@ export const SelectVariant: React.FC<SelectVariantProps> = (props) => {
               component="h2"
               className={classes["modal-title"]}
             >
-              <strong>Select your variant:</strong>
+              <strong>{t("product.selectvarHead")}</strong>
             </Typography>
 
             <ToggleButtonGroup
@@ -102,7 +104,11 @@ export const SelectVariant: React.FC<SelectVariantProps> = (props) => {
               {PRODUCT_VARIANTS.map((variant) =>
                 product.id === variant.originalId ? (
                   <ToggleButton key={variant.id} value={variant.id}>
-                    {variant.variantName} <br></br> {variant.price.toFixed(2)}Kr
+                    {t(`product.${variant.variantName}`)}{" "}
+                    <>
+                      <br />
+                    </>{" "}
+                    {variant.price.toFixed(2)}Kr
                   </ToggleButton>
                 ) : null
               )}
@@ -115,7 +121,7 @@ export const SelectVariant: React.FC<SelectVariantProps> = (props) => {
               type="submit"
               className={classes["add-to-cart-button"]}
             >
-              Add to Cart
+              {t("order.confirmbtn")}
             </Button>
           </Box>
         </form>

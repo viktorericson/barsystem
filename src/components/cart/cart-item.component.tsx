@@ -113,9 +113,9 @@ export const CartItem: React.FC<CartItemProps> = (props) => {
           </IconButton>
         </Box>
       </TableCell>
-      <TableCell align="right" sx={{ fontSize: 16 }}>
+      {/* <TableCell align="right" sx={{ fontSize: 16 }}>
         {ccyFormat(unit)}
-      </TableCell>
+      </TableCell> */}
       <TableCell align="right" sx={{ fontWeight: "bold", fontSize: 16 }}>
         {ccyFormat(priceRow(qty, unit))}
       </TableCell>

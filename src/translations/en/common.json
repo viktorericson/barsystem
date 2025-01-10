@@ -13,6 +13,9 @@
 		"soda": "soda",
 		"spirits": "spirits"
 	},
+	"inactivity": {
+		"message": ""
+	},
 	"loading": {
 		"title": "Waiting For Terminal"
 	},
@@ -20,6 +23,9 @@
 		"cancelbtn": "Cancel",
 		"confirmbtn": "Confirm",
 		"confirmtext": "Do you want to confirm this order?",
+		"emailbtn-cancel": "No thanks",
+		"emailbtn-ok": "Send to email",
+		"emailreceipt": "Do you want a receipt? ",
 		"pendingpayment": "Awaiting Payment"
 	}
 }

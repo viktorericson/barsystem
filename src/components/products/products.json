@@ -1,0 +1,92 @@
+{
+  "CATEGORIES": {
+    "BEERS": "Beers",
+    "SPIRITS": "Spirits",
+    "SODA": "Soda",
+    "ALL": "All"
+  },
+  "PRODUCTS": [
+    {
+      "name": "Classic",
+      "price": 50,
+      "category": "Beers",
+      "id": 1,
+      "SLV": 0,
+      "OPT": 0,
+      "MEG": 0,
+      "enabled": true,
+      "img": "Classic.png"
+    },
+    {
+      "name": "Pilsner",
+      "price": 50,
+      "category": "Beers",
+      "id": 2,
+      "SLV": 0,
+      "OPT": 0,
+      "MEG": 0,
+      "enabled": true,
+      "img": "Pilsner.png"
+    },
+    {
+      "name": "Rum",
+      "price": 3.0,
+      "category": "Spirits",
+      "id": 3,
+      "SLV": 0,
+      "OPT": 0,
+      "MEG": 0,
+      "enabled": true,
+      "variants": true,
+      "img": "Rum.png"
+    },
+    {
+      "name": "Pepsi",
+      "price": 3.5,
+      "category": "Soda",
+      "id": 4,
+      "SLV": 0,
+      "OPT": 0,
+      "MEG": 0,
+      "enabled": true,
+      "img": "Pepsi.svg"
+    },
+    {
+      "name": "Sprite",
+      "price": 3.5,
+      "category": "Soda",
+      "id": 5,
+      "SLV": 0,
+      "OPT": 0,
+      "MEG": 0,
+      "enabled": true,
+      "img": "Sprite.png"
+    }
+  ],
+  "PRODUCT_VARIANTS": [
+    {
+      "name": "Rum",
+      "variantName": "Pepsi",
+      "price": 4.0,
+      "category": "Spirits",
+      "id": 101,
+      "originalId": 3
+    },
+    {
+      "name": "Rum",
+      "variantName": "Sprite",
+      "price": 4.0,
+      "category": "Spirits",
+      "id": 102,
+      "originalId": 3
+    },
+    {
+      "name": "Rum",
+      "variantName": "None",
+      "price": 3.0,
+      "category": "Spirits",
+      "id": 103,
+      "originalId": 3
+    }
+  ]
+}

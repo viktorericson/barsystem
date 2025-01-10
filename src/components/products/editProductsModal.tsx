@@ -59,7 +59,7 @@ export const EditProductsModal: React.FC<EditProductsModalProps> = ({
 
   // Handle password verification
   const verifyPassword = () => {
-    fetch("http://127.0.0.1:8000/sendTek0", {
+    fetch("http://127.0.0.1:8004/sendTek0", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -86,7 +86,7 @@ export const EditProductsModal: React.FC<EditProductsModalProps> = ({
   };
 
   const handleClose = () => {
-    fetch("http://127.0.0.1:8000/sendTek", {
+    fetch("http://127.0.0.1:8004/sendTek", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -115,7 +115,7 @@ export const EditProductsModal: React.FC<EditProductsModalProps> = ({
       handleClose();
       return;
     }
-    fetch("http://127.0.0.1:8000/sendTek2", {
+    fetch("http://127.0.0.1:8004/sendTek2", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -44,11 +44,14 @@ export const CartList: React.FC = () => {
         >
           <TableHead>
             <TableRow className={classes["table-header"]}>
-              <TableCell>{t("cart.product")}</TableCell>
-              <TableCell align="center">{t("cart.qty")}</TableCell>
-              <TableCell align="right">{t("cart.price")}</TableCell>
-              <TableCell align="right">Sum</TableCell>
-              <TableCell align="right"></TableCell>
+              <TableCell sx={{ fontSize: 16 }}>{t("cart.product")}</TableCell>
+              <TableCell sx={{ fontSize: 16 }} align="center">
+                {t("cart.qty")}
+              </TableCell>
+              <TableCell sx={{ fontSize: 16 }} align="right">
+                Sum
+              </TableCell>
+              <TableCell sx={{ fontSize: 16 }} align="right"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

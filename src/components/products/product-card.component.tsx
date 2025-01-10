@@ -46,7 +46,7 @@ export const ProductCard: React.FC<ProductCardProps> = (props) => {
           <Typography
             component="p"
             variant="body2"
-            sx={{ fontWeight: "bold", fontSize: 16, margin: 0.5 }}
+            sx={{ fontWeight: "bold", fontSize: 20, margin: 0.5 }}
           >
             {price + " "}Kr
           </Typography>
@@ -64,14 +64,14 @@ export const ProductCard: React.FC<ProductCardProps> = (props) => {
         className={classes["card-media"]}
       />
       <CardContent className={classes["card-content"]}>
-        {/* <Typography
+        <Typography
           gutterBottom
           variant="body2"
           component="h3"
-          sx={{ fontWeight: "bold" }}
+          sx={{ fontWeight: "bold", textAlign: "center", fontSize: 20 }}
         >
           {name}
-        </Typography> */}
+        </Typography>
       </CardContent>
       <CardActions className={classes["card-actions"]}>
         {/* <Typography

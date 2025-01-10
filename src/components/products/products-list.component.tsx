@@ -22,7 +22,7 @@ export const ProductsList: React.FC<ProductsListProps> = ({
         {productsFiltered
           .filter((product) => product.enabled)
           .map((product, index) => (
-            <Grid key={index} item xl={3} lg={3} md={3} sm={6} xs={12}>
+            <Grid key={index} item xl={4} lg={4} md={4} sm={8} xs={12}>
               <ProductCard product={product} />
             </Grid>
           ))}

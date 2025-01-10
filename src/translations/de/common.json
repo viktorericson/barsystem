@@ -13,6 +13,9 @@
 		"soda": "soda",
 		"spirits": "spirituosen"
 	},
+	"inactivity": {
+		"message": ""
+	},
 	"loading": {
 		"title": "Warten Auf Terminal"
 	},
@@ -20,6 +23,9 @@
 		"cancelbtn": "Stornieren",
 		"confirmbtn": "Bestätigen",
 		"confirmtext": "Möchten Sie mit der Zahlung fortfahren?",
+		"emailbtn-cancel": "Nein danke",
+		"emailbtn-ok": "Als E-Mail senden",
+		"emailreceipt": "Möchten Sie eine Quittung?",
 		"pendingpayment": "Warten auf die Zahlung"
 	}
 }

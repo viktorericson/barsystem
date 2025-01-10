@@ -1,50 +1,141 @@
 export interface Product {
-	name: string;
-	price: number;
-	category: string;
-	id: number;
-	// Only for filtering
-	variants?: boolean;
-	// Only available if ProductVariant
-	variantName?: string;
+  name: string;
+  price: number;
+  category: string;
+  id: number;
+  // Only for filtering
+  variants?: boolean;
+  // Only available if ProductVariant
+  variantName?: string;
+  SLV?: number;
+  OPT?: number;
+  MEG?: number;
+  enabled?: boolean;
+  img?: string;
 }
 
 export interface ProductVariant {
-	name: string;
-	variantName: string;
-	price: number;
-	category: string;
-	id: number;
-	originalId: number;
+  name: string;
+  variantName: String;
+  price: number;
+  category: string;
+  id: number;
+  originalId: number;
 }
 
 export const CATEGORIES = {
-	HOT_DRINKS: "hot_drinks",
-	PASTRIES: "pastries",
-	ALL: "all",
-}
+  BEERS: "Beers",
+  SPIRITS: "Spirits",
+  SODA: "Soda",
+  ALL: "All",
+};
 
 export const PRODUCTS: Product[] = [
-	{ name: "Coffee with milk", price: 3.50, category: CATEGORIES.HOT_DRINKS, id: 1, variants: true},
-	{ name: "Tea", price: 2.50, category: CATEGORIES.HOT_DRINKS, id: 2 },
-	{ name: "Hot chocolate", price: 4.00, category: CATEGORIES.HOT_DRINKS, id: 3 },
-	{ name: "Cappuccino", price: 3.00, category: CATEGORIES.HOT_DRINKS, id: 4, variants: true },
-	{ name: "Espresso", price: 2.00, category: CATEGORIES.HOT_DRINKS, id: 5 },
-	{ name: "Americano", price: 3.50, category: CATEGORIES.HOT_DRINKS, id: 6 },
-	{ name: "Orange juice", price: 3.00, category: CATEGORIES.HOT_DRINKS, id: 7 },
-	{ name: "Croissant", price: 2.00, category: CATEGORIES.PASTRIES, id: 8 },
-	{ name: "Muffin", price: 2.50, category: CATEGORIES.PASTRIES, id: 9 },
-	{ name: "Donut", price: 2.50, category: CATEGORIES.PASTRIES, id: 10 },
-	{ name: "Bagel", price: 2.50, category: CATEGORIES.PASTRIES, id: 11 },
-	{ name: "Toast", price: 2.00, category: CATEGORIES.PASTRIES, id: 12 },
-	{ name: "Pancakes", price: 3.50, category: CATEGORIES.PASTRIES, id: 13 },
-	{ name: "Cheesecake", price: 3.50, category: CATEGORIES.PASTRIES, id: 14 },
+  {
+    name: "Classic",
+    price: 3.0,
+    category: CATEGORIES.BEERS,
+    id: 1,
+    SLV: 0,
+    OPT: 0,
+    MEG: 0,
+    enabled: true,
+    img: "Classic.png",
+  },
+  {
+    name: "Pilsner",
+    price: 3.5,
+    category: CATEGORIES.BEERS,
+    id: 2,
+    SLV: 0,
+    OPT: 0,
+    MEG: 0,
+    enabled: true,
+    img: "Pilsner.png",
+  },
+  {
+    name: "Rum",
+    price: 3.0,
+    category: CATEGORIES.SPIRITS,
+    id: 3,
+    SLV: 0,
+    OPT: 0,
+    MEG: 0,
+    enabled: true,
+    variants: true,
+    img: "Rum.png",
+  },
+  {
+    name: "Pepsi",
+    price: 3.5,
+    category: CATEGORIES.SODA,
+    id: 4,
+    SLV: 0,
+    OPT: 0,
+    MEG: 0,
+    enabled: true,
+    img: "Pepsi.svg",
+  },
+  {
+    name: "Sprite",
+    price: 3.5,
+    category: CATEGORIES.SODA,
+    id: 5,
+    SLV: 0,
+    OPT: 0,
+    MEG: 0,
+    enabled: true,
+    img: "Sprite.png",
+  },
 ];
 
-export const PRODUCT_VARIANTS : ProductVariant[] = [
-	{name: "Coffee with milk M", variantName: "M", price: 4.00, category: CATEGORIES.HOT_DRINKS, id: 101, originalId: 1},
-	{name: "Coffee with milk L", variantName: "L", price: 4.50, category: CATEGORIES.HOT_DRINKS, id: 102, originalId: 1},
-	{name: "Coffee with milk XL", variantName: "XL", price: 5.00, category: CATEGORIES.HOT_DRINKS, id: 103, originalId: 1},
-	{name: "Cappuccino L", variantName: "L", price: 4.00, category: CATEGORIES.HOT_DRINKS, id: 104, originalId: 4},
-	{name: "Cappuccino XL", variantName: "XL", price: 4.50, category: CATEGORIES.HOT_DRINKS, id: 105, originalId: 4},
-]
+export const PRODUCT_VARIANTS: ProductVariant[] = [
+  {
+    name: "Rum",
+    variantName: "Pepsi",
+    price: 4.0,
+    category: CATEGORIES.SPIRITS,
+    id: 101,
+    originalId: 3,
+  },
+  {
+    name: "Rum",
+    variantName: "Sprite",
+    price: 4.0,
+    category: CATEGORIES.SPIRITS,
+    id: 102,
+    originalId: 3,
+  },
+  {
+    name: "Rum",
+    variantName: "None",
+    price: 3.0,
+    category: CATEGORIES.SPIRITS,
+    id: 103,
+    originalId: 3,
+  },
+  // {
+  //   name: "Rum",
+  //   variantName: "Faxe Kondi",
+  //   price: 3.0,
+  //   category: CATEGORIES.SPIRITS,
+  //   id: 104,
+  //   originalId: 3,
+  // },
+  // {
+  //   name: "Rum",
+  //   variantName: "Soda",
+  //   price: 3.0,
+  //   category: CATEGORIES.SPIRITS,
+  //   id: 105,
+  //   originalId: 3,
+  // },
+  // {
+  //   name: "Rum",
+  //   variantName: "Fanta",
+  //   price: 3.0,
+  //   category: CATEGORIES.SPIRITS,
+  //   id: 106,
+  //   originalId: 3,
+  // },
+];

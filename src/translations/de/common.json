@@ -27,7 +27,8 @@
 		"emailbtn-ok": "Als E-Mail senden",
 		"emailreceipt": "Möchten Sie eine Quittung?",
 		"kvitteringHead": "Quittung",
-		"pendingpayment": "Warten auf die Zahlung"
+		"pendingpayment": "Warten auf die Zahlung",
+		"pourmessage": "Bereit zum Ausgießen"
 	},
 	"product": {
 		"mixer": "Ja danke",

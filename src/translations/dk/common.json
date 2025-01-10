@@ -13,6 +13,9 @@
 		"soda": "sodavand",
 		"spirits": "sprut"
 	},
+	"inactivity": {
+		"message": ""
+	},
 	"loading": {
 		"title": "Afventer Terminal"
 	},
@@ -20,6 +23,9 @@
 		"cancelbtn": "Afbryd",
 		"confirmbtn": "Fortsæt",
 		"confirmtext": "Vil du fortsætte til betaling?",
+		"emailbtn-cancel": "Nej tak",
+		"emailbtn-ok": "Send til email",
+		"emailreceipt": "Ønsker du at få en kvittering?",
 		"pendingpayment": "Afventer Betaling"
 	}
 }

@@ -66,7 +66,7 @@ export const SelectVariant: React.FC<SelectVariantProps> = (props) => {
         <Typography
           component="p"
           variant="body2"
-          sx={{ fontWeight: "bold", fontSize: 16, margin: 0.5 }}
+          sx={{ fontWeight: "bold", fontSize: 20, margin: 0.5 }}
         >
           Select
         </Typography>

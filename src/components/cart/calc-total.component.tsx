@@ -19,6 +19,7 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useRef } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { Checkmark } from "react-checkmark";
+import paymentGif from "../../../public/imgs/gifs/payment.gif";
 
 export const CalcTotal: React.FC = () => {
   const { productsInCart, setProductsInCart } =
@@ -155,7 +156,7 @@ export const CalcTotal: React.FC = () => {
     setOpenLoadingModal(true);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/checkout", {
+      const response = await fetch("http://127.0.0.1:8004/checkout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -219,7 +220,7 @@ export const CalcTotal: React.FC = () => {
     setOpenLoadingModal(true);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/checkout", {
+      const response = await fetch("http://127.0.0.1:8004/checkout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -270,6 +271,7 @@ export const CalcTotal: React.FC = () => {
         variant="body1"
         component="h2"
         className={classes["total-font"]}
+        sx={{ fontSize: 20 }}
       >
         Total: {ccyFormat(total)}KR
       </Typography>
@@ -286,24 +288,26 @@ export const CalcTotal: React.FC = () => {
             <strong>{t("order.confirmtext")}</strong>
           </Typography>
           <br />
-          <Box sx={{ display: "flex", gap: 4 }}>
+          <Box sx={{ display: "flex", gap: 2 }}>
             <Button
               size="small"
               color="error"
-              variant="outlined"
+              variant="contained"
               onClick={handleOrderModalClose}
+              sx={{ fontSize: 20, fontWeight: "bold" }}
             >
               {t("order.cancelbtn")}
             </Button>
             <Button
               size="small"
               color="success"
-              variant="outlined"
+              variant="contained"
               onClick={() => {
                 setOpenOrderModal(false);
                 setOpenLoadingModal(true);
                 handleRecievePayment();
               }}
+              sx={{ fontSize: 20, fontWeight: "bold" }}
             >
               {t("order.confirmbtn")}
             </Button>
@@ -320,7 +324,7 @@ export const CalcTotal: React.FC = () => {
       >
         <Box className={classes["modal-style"]}>
           <Typography id="email-modal-title" variant="h6" component="h2">
-            <strong>Do you want a reciept?</strong>
+            <strong>{t("order.emailreceipt")}</strong>
           </Typography>
           <TextField
             fullWidth
@@ -339,7 +343,7 @@ export const CalcTotal: React.FC = () => {
               variant="outlined"
               onClick={handleEmailModalClose}
             >
-              No Thanks
+              {t("order.emailbtn-cancel")}
             </Button>
             <Button
               size="small"
@@ -347,7 +351,7 @@ export const CalcTotal: React.FC = () => {
               variant="outlined"
               onClick={handleEmailSubmit}
             >
-              Send to Email
+              {t("order.emailbtn-ok")}
             </Button>
           </Box>
         </Box>
@@ -357,21 +361,25 @@ export const CalcTotal: React.FC = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box className={classes["modal-style"]}>
+        <Box
+          className={classes["modal-style"]}
+          sx={{
+            textAlign: "center",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <Typography id="modal-modal-title" variant="h6" component="h2">
             {t("order.pendingpayment")}
           </Typography>
-          {recievedPayment ? (
+          <img src={paymentGif} alt="" />
+          {/* {recievedPayment ? (
             <Checkmark size="100" />
           ) : (
-            <RotatingLines
-              strokeColor="grey"
-              strokeWidth="5"
-              animationDuration="0.75"
-              width="100"
-              visible={true}
-            />
-          )}
+            
+          )} */}
         </Box>
       </Modal>
       {/* Inactivity Modal */}

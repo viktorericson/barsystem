@@ -28,7 +28,7 @@ export const Home: React.FC<MainContainerProps> = (props) => {
   const [products, setProducts] = React.useState<Product[]>(PRODUCTS);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/startup", {
+    fetch("http://127.0.0.1:8004/startup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -26,6 +26,7 @@
 		"emailbtn-cancel": "No thanks",
 		"emailbtn-ok": "Send to email",
 		"emailreceipt": "Do you want a receipt? ",
+		"kvitteringHead": "Order Receipt",
 		"pendingpayment": "Awaiting Payment"
 	},
 	"product": {

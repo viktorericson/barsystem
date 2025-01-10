@@ -22,6 +22,8 @@ import { Checkmark } from "react-checkmark";
 import paymentGif from "../../../public/imgs/gifs/payment.gif";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { sendEmail } from "./sendEmail";
+import logo from "../../../public/imgs/GetAttachmentThumbnail.png";
 
 export const CalcTotal: React.FC = () => {
   const { productsInCart, setProductsInCart } =
@@ -201,7 +203,6 @@ export const CalcTotal: React.FC = () => {
           total: total,
         })),
       ]);
-      setProductsInCart([]);
 
       // Close the Loading Modal on Success
       setRecievedPayment(true);
@@ -226,6 +227,85 @@ export const CalcTotal: React.FC = () => {
     }
   };
 
+  interface OrderForEmail {
+    id: string;
+    products: { name: string; quantity: number; price: number }[];
+    total: number;
+    date: string;
+  }
+
+  const generateReceiptHtml = (newOrderForEmail: OrderForEmail) => {
+    const { id, products, total, date } = newOrderForEmail;
+
+    const productRows = products
+      .map(
+        (product) => `
+          <tr style="border-bottom: 1px solid #ccc; padding: 10px;">
+            <td style="padding: 10px; text-align: left;">${product.name}</td>
+            <td style="padding: 10px; text-align: center;">${
+              product.quantity
+            }</td>
+            <td style="padding: 10px; text-align: right;">${product.price.toFixed(
+              2
+            )} KR</td>
+            <td style="padding: 10px; text-align: right;">${(
+              product.quantity * product.price
+            ).toFixed(2)} KR</td>
+          </tr>
+        `
+      )
+      .join("");
+
+    return `
+      <html>
+        <body style="font-family: 'Roboto', sans-serif; margin: 0; padding: 0; background-color: #f9f9f9;">
+          <div style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+          <div style="display: flex; justify-content: space-between; align-items: center;">  
+          
+          <h1 style="text-align: center; color: #3f51b5; margin-bottom: 20px;">${t(
+            "order.kvitteringHead"
+          )}</h1>
+          <img src="https://funart.dk/wp-content/uploads/2024/12/cropped-fun-art-logo.png" alt="RubienTech Logo" style="width: 100px; height: auto; filter: invert(100%)" />
+            </div>
+            <p><strong>ID:</strong> ${id}</p>
+            <p><strong>${t("order.date")}:</strong> ${date}</p>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+              <thead>
+                <tr style="background-color: #3f51b5; color: #fff;">
+                  <th style="padding: 10px; text-align: left;">Product</th>
+                  <th style="padding: 10px; text-align: center;">Quantity</th>
+                  <th style="padding: 10px; text-align: right;">Price</th>
+                  <th style="padding: 10px; text-align: right;">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${productRows}
+              </tbody>
+              <tfoot>
+                <tr style="font-weight: bold; border-top: 2px solid #ccc;">
+                  <td colspan="3" style="text-align: right; padding: 10px;">Total:</td>
+                  <td style="text-align: right; padding: 10px; color: #3f51b5;">${total.toFixed(
+                    2
+                  )} KR</td>
+                </tr>
+              </tfoot>
+            </table>
+            <p style="margin-top: 20px; text-align: center; color: #555;">
+              Thank you for your purchase!<br />
+              If you have any questions, feel free to contact us.
+            </p>
+             <p style="margin-top: 16px; text-align: center; color: #555">
+              Powered by RubienTech
+            </p>
+            <footer style="margin-top: 20px; text-align: center; font-size: 0.8em; color: #888;">
+              &copy; ${new Date().getFullYear()} RubienTech. All rights reserved.
+            </footer>
+          </div>
+        </body>
+      </html>
+    `;
+  };
+
   const handleEmailSubmit = async () => {
     if (!/\S+@\S+\.\S+/.test(email)) {
       setEmailError(true);
@@ -235,62 +315,52 @@ export const CalcTotal: React.FC = () => {
     setEmailError(false);
     const lastOrderId = getLastOrderId(orders);
     const newOrderId = generateNewOrderId(lastOrderId);
+
+    const uniqueProducts = productsInCart.reduce((acc, product) => {
+      const existingProduct = acc.find((p) => p.name === product.name);
+      if (existingProduct) {
+        existingProduct.quantity += 1;
+      } else {
+        acc.push({ name: product.name, quantity: 1, price: product.price });
+      }
+      return acc;
+    }, [] as { name: string; quantity: number; price: number }[]);
     const newOrderForEmail = {
       id: newOrderId,
-      products: productsInCart,
+      products: uniqueProducts,
       total: total,
       email,
-      date: new Date().toString(),
+      date: new Date().toLocaleString("en-GB", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
       isCompleted: true,
     };
 
-    const newOrder = {
-      products: productsInCart,
-      total: total,
-    };
-
-    // Close the Email Modal and Open the Loading Modal
-    setOpenEmailModal(false);
-    setOpenLoadingModal(true);
-
     try {
-      const response = await fetch("http://127.0.0.1:8004/checkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newOrder),
+      await sendEmail({
+        to: email,
+        subject: "Your Order Receipt",
+        html: generateReceiptHtml(newOrderForEmail),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to process the order");
-      }
-
-      const data = await response.json();
-
-      if (data.error) {
-        throw new Error(data.error);
-      }
-
-      // Update Orders and Clear Cart
-      setOrders([...orders, newOrder]);
+      console.log(
+        "Email sent successfully",
+        generateReceiptHtml(newOrderForEmail)
+      );
       setProductsInCart([]);
+      setEmail("");
 
-      // Close the Loading Modal on Success
-      setOpenLoadingModal(false);
-
-      // Redirect to Home
-      if (location.pathname !== "/") {
-        navigate("/");
-      }
+      setOpenEmailModal(false);
     } catch (error) {
-      console.error("Failed to send order:", error);
-
-      // Close the Loading Modal on Failure
-      setOpenLoadingModal(false);
-
+      console.error("Failed to send email:", error);
       // Optionally, show an error notification or modal here
-      alert("An error occurred while processing your order. Please try again.");
+      setProductsInCart([]);
+      setEmail("");
+      setOpenEmailModal(false);
     }
   };
 

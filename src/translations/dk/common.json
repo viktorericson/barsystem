@@ -27,7 +27,8 @@
 		"emailbtn-ok": "Send til email",
 		"emailreceipt": "Ønsker du at få en kvittering?",
 		"kvitteringHead": "Kvittering",
-		"pendingpayment": "Afventer Betaling"
+		"pendingpayment": "Afventer Betaling",
+		"pourmessage": "Klar til at skænke"
 	},
 	"product": {
 		"mixer": "Ja tak",

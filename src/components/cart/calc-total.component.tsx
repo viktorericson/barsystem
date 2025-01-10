@@ -23,7 +23,7 @@ import paymentGif from "../../../public/imgs/gifs/payment.gif";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { sendEmail } from "./sendEmail";
-import logo from "../../../public/imgs/GetAttachmentThumbnail.png";
+import { Hourglass } from "react-loader-spinner";
 
 export const CalcTotal: React.FC = () => {
   const { productsInCart, setProductsInCart } =
@@ -34,6 +34,7 @@ export const CalcTotal: React.FC = () => {
 
   const [openOrderModal, setOpenOrderModal] = React.useState(false);
   const [openEmailModal, setOpenEmailModal] = React.useState(false);
+  const [openReadyToPourModal, setOpenReadyToPourModal] = React.useState(false);
   const [openLoadingModal, setOpenLoadingModal] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [emailError, setEmailError] = React.useState(false);
@@ -48,8 +49,37 @@ export const CalcTotal: React.FC = () => {
   const handleOrderModalOpen = () => setOpenOrderModal(true);
   const handleOrderModalClose = () => setOpenOrderModal(false);
 
-  const handleEmailModalClose = () => setOpenEmailModal(false);
   const { t } = useTranslation("common");
+
+  const handleEmailModalClose = () => {
+    setOpenEmailModal(false);
+    setEmail("");
+    handleReadyToPourModal();
+  };
+
+  const handleReadyToPourModal = () => {
+    setOpenReadyToPourModal(false);
+    const checkReadyStatus = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:8004/ready_status");
+        const data = await response.json();
+
+        if (data.status === "done") {
+          setOpenReadyToPourModal(false);
+        }
+        if (data.status === "Empty") {
+          alert("The Tank is empty, please refill it");
+        } else {
+          setTimeout(checkReadyStatus, 5000);
+        }
+      } catch (error) {
+        console.error("Failed to fetch ready status:", error);
+        setTimeout(checkReadyStatus, 5000);
+      }
+    };
+
+    checkReadyStatus();
+  };
 
   const resetInactivityTimer = () => {
     if (isCartEmpty(productsInCart)) {
@@ -355,6 +385,7 @@ export const CalcTotal: React.FC = () => {
       setEmail("");
 
       setOpenEmailModal(false);
+      setOpenReadyToPourModal(true);
     } catch (error) {
       console.error("Failed to send email:", error);
       // Optionally, show an error notification or modal here
@@ -512,6 +543,26 @@ export const CalcTotal: React.FC = () => {
               {t("inactivity.continue")}
             </Button>
           </Box>
+        </Box>
+      </Modal>
+      <Modal
+        open={openReadyToPourModal}
+        aria-labelledby="inactivity-modal-title"
+        aria-describedby="inactivity-modal-description"
+      >
+        <Box className={classes["modal-style"]}>
+          <Typography id="inactivity-modal-title" variant="h6" component="h2">
+            {t("order.pourmessage")}
+          </Typography>
+          <Hourglass
+            visible={true}
+            height="80"
+            width="80"
+            ariaLabel="hourglass-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            colors={["#306cce", "#72a1ed"]}
+          />
         </Box>
       </Modal>
 

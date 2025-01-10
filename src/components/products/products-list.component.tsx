@@ -1,42 +1,32 @@
 import { Box, Grid, Paper, Typography } from "@mui/material";
-import {
-	filterProducts,
-	returnCategoryName,
-} from "./products.motor";
-import { PRODUCTS } from "./products.model";
+import { filterProducts, returnCategoryName } from "./products.motor";
+import { PRODUCTS, Product } from "./products.model";
 import { ProductCard } from "./product-card.component";
 import classes from "./css/products-list.module.css";
-import { BasicModal } from "./modal-add-product.component";
+// import { BasicModal } from "./modal-add-product.component";
 import React from "react";
 
 interface ProductsListProps {
-	filter: string;
+  filter: string;
+  products: Product[]; // Pass filtered products as a prop
 }
 
-export const ProductsList: React.FC<ProductsListProps> = (props) => {
-	const { filter } = props;
-	const productsFiltered = filterProducts(PRODUCTS, filter);
-	const categoryName = <strong>{returnCategoryName(filter)}</strong>;
-
-	return (
-		<Paper className={classes["products-container"]} elevation={5} square>
-			<Box className={classes["title-container"]}>
-				<Typography
-					className={classes["products-title"]}
-					variant="h6"
-					component="h2"
-				>
-					Listing: {categoryName}
-				</Typography>
-				<BasicModal />
-			</Box>
-			<Grid container spacing={2}>
-				{productsFiltered.map((product, index) => (
-					<Grid key={index} item xl={2} lg={3} md={4} sm={3} xs={6}>
-						<ProductCard product={product}/>
-					</Grid>
-				))}
-			</Grid>
-		</Paper>
-	);
+export const ProductsList: React.FC<ProductsListProps> = ({
+  filter,
+  products,
+}) => {
+  const productsFiltered = filterProducts(products, filter);
+  return (
+    <Paper className={classes["products-container"]} elevation={5} square>
+      <Grid container spacing={2}>
+        {productsFiltered
+          .filter((product) => product.enabled)
+          .map((product, index) => (
+            <Grid key={index} item xl={3} lg={3} md={3} sm={6} xs={12}>
+              <ProductCard product={product} />
+            </Grid>
+          ))}
+      </Grid>
+    </Paper>
+  );
 };

@@ -1,0 +1,25 @@
+{
+	"cart": {
+		"price": "Pris",
+		"product": "Produkt",
+		"qty": "Antal"
+	},
+	"cartbtn": {
+		"text": "Til Betaling"
+	},
+	"filterbtn": {
+		"all": "vis alle",
+		"beers": "Øl",
+		"soda": "sodavand",
+		"spirits": "sprut"
+	},
+	"loading": {
+		"title": "Afventer Terminal"
+	},
+	"order": {
+		"cancelbtn": "Afbryd",
+		"confirmbtn": "Fortsæt",
+		"confirmtext": "Vil du fortsætte til betaling?",
+		"pendingpayment": "Afventer Betaling"
+	}
+}

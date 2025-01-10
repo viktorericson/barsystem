@@ -1,0 +1,25 @@
+{
+	"cart": {
+		"price": "Price",
+		"product": "Product",
+		"qty": "Qty."
+	},
+	"cartbtn": {
+		"text": "Place Order"
+	},
+	"filterbtn": {
+		"all": "show all",
+		"beers": "Beer",
+		"soda": "soda",
+		"spirits": "spirits"
+	},
+	"loading": {
+		"title": "Waiting For Terminal"
+	},
+	"order": {
+		"cancelbtn": "Cancel",
+		"confirmbtn": "Confirm",
+		"confirmtext": "Do you want to confirm this order?",
+		"pendingpayment": "Awaiting Payment"
+	}
+}

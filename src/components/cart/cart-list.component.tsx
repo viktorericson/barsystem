@@ -12,46 +12,53 @@ import { Box } from "@mui/material";
 import classes from "./css/cart-list.module.css";
 import { CalcTotal } from "./calc-total.component";
 import { appContext } from "../../appContext";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export const CartList: React.FC = () => {
-	const { productsInCart } = React.useContext(appContext).cartCTX;
-	const productsGrouped = groupProducts(productsInCart);
-	const location = useLocation();
+  const { productsInCart } = React.useContext(appContext).cartCTX;
+  const productsGrouped = groupProducts(productsInCart);
+  const location = useLocation();
 
-	const isUserInHome = () => {
-		return location.pathname === "/";
-	}
+  const isUserInHome = () => {
+    return location.pathname === "/";
+  };
 
-	return (
-		<Box sx={{ flexGrow: 1 }}>
-			<TableContainer
-				component={Paper}
-				className={classes["cart-container"]}
-				elevation={5}
-				square
-			>
-				<Table aria-label="spanning table" className={(isCartEmpty(productsInCart) && isUserInHome()) ? classes["table-body"] : ""}>
-					<TableHead>
-						<TableRow className={classes["table-header"]}>
-							<TableCell>Product</TableCell>
-							<TableCell align="center">Qty.</TableCell>
-							<TableCell align="right">Price</TableCell>
-							<TableCell align="right">Sum</TableCell>
-							<TableCell align="right"></TableCell>
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						{productsGrouped.map((row) => (
-							<CartItem
-								key={row.id}
-								productInfo={row}
-							/>
-						))}
-					</TableBody>
-				</Table>
-			</TableContainer>
-			<CalcTotal/>
-		</Box>
-	);
+  const { t } = useTranslation("common");
+
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <TableContainer
+        component={Paper}
+        className={classes["cart-container"]}
+        elevation={5}
+        square
+      >
+        <Table
+          aria-label="spanning table"
+          className={
+            isCartEmpty(productsInCart) && isUserInHome()
+              ? classes["table-body"]
+              : ""
+          }
+        >
+          <TableHead>
+            <TableRow className={classes["table-header"]}>
+              <TableCell>{t("cart.product")}</TableCell>
+              <TableCell align="center">{t("cart.qty")}</TableCell>
+              <TableCell align="right">{t("cart.price")}</TableCell>
+              <TableCell align="right">Sum</TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {productsGrouped.map((row) => (
+              <CartItem key={row.id} productInfo={row} />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <CalcTotal />
+    </Box>
+  );
 };

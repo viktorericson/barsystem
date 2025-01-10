@@ -1,0 +1,25 @@
+{
+	"cart": {
+		"price": "Preis",
+		"product": "Produkt",
+		"qty": "Menge"
+	},
+	"cartbtn": {
+		"text": "Zur Kasse Gehen"
+	},
+	"filterbtn": {
+		"all": "Alles anzeigen",
+		"beers": "Bier",
+		"soda": "soda",
+		"spirits": "spirituosen"
+	},
+	"loading": {
+		"title": "Warten Auf Terminal"
+	},
+	"order": {
+		"cancelbtn": "Stornieren",
+		"confirmbtn": "Bestätigen",
+		"confirmtext": "Möchten Sie mit der Zahlung fortfahren?",
+		"pendingpayment": "Warten auf die Zahlung"
+	}
+}
